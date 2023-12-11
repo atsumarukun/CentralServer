@@ -9,4 +9,26 @@ services:
       - ./api:/go/src/api
     working_dir: /go/src/api
     restart: always
+    depends_on:
+      - db
     command: go run cmd/api/main.go
+
+  db:
+    image: postgres:16
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=gorm
+      - POSTGRES_PASSWORD=gorm
+      - POSTGRES_DB=gorm
+    restart: always
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - db
