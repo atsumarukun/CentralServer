@@ -1,6 +1,7 @@
 package computer
 
 import (
+	"api/internal/app/api/pkg"
 	"api/internal/app/api/computer/domain"
 	"api/internal/app/api/computer/domain/repository"
 )
@@ -11,11 +12,10 @@ func NewComputerInfrastructure() repository.ComputerRepository {
 	return &computerInfrastructure{}
 }
 
-func (_ computerInfrastructure) GetComputerById(id int) domain.Computer {
-	return domain.Computer{
-		ID: id,
-		HostName: "test",
-		IPAddress: "0.0.0.0",
-		MACAddress: "00:00:00:00:00:00",
+func (_ computerInfrastructure) GetComputerById(id int) (*domain.Computer, error) {
+	var computer domain.Computer
+	if err := pkg.DB.Find(&computer, id).Error; err != nil {
+		return nil, err
 	}
+	return &computer, nil
 }

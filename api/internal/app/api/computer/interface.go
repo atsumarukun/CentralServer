@@ -20,7 +20,12 @@ func NewComputerHandler(uc ComputerUseCase) ComputerHandler {
 }
 
 func (h computerHandler) GetComputerById(c *gin.Context) {
+	computer, err := h.computerUseCase.GetComputerById(1)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{
-		"message": h.computerUseCase.GetComputerById(1),
+		"message": computer,
 	})
 }

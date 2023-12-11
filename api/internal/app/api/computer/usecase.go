@@ -6,7 +6,7 @@ import (
 )
 
 type ComputerUseCase interface {
-	GetComputerById(id int) domain.Computer
+	GetComputerById(id int) (*domain.Computer, error)
 }
 
 type computerUseCase struct {
@@ -19,6 +19,6 @@ func NewComputerUseCase(r repository.ComputerRepository) ComputerUseCase {
 	}
 }
 
-func (uc computerUseCase) GetComputerById(id int) domain.Computer {
+func (uc computerUseCase) GetComputerById(id int) (*domain.Computer, error) {
 	return uc.computerRepository.GetComputerById(id)
 }

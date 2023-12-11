@@ -5,5 +5,5 @@ import (
 )
 
 type ComputerRepository interface {
-	GetComputerById(id int) domain.Computer
+	GetComputerById(id int) (*domain.Computer, error)
 }

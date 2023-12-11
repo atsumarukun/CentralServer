@@ -6,11 +6,16 @@ import (
 	"api/internal/app/api/computer/domain"
 )
 
+var (
+	DB *gorm.DB
+)
+
 func ConnectDataBase() {
 	dsn := "host=db user=gorm password=gorm dbname=gorm port=5432 sslmode=disable TimeZone=UTC"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	var err error
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("Failed to connect database.")
 	}
-	db.AutoMigrate(&domain.Computer{})
+	DB.AutoMigrate(&domain.Computer{})
 }
