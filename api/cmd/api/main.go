@@ -1,16 +1,13 @@
 package main
 
 import (
-	"net/http"
 	"github.com/gin-gonic/gin"
+	"api/internal/app/api/computer"
 )
 
 func main() {
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "ok",
-		})
-	})
+	v1 := r.Group("/api/v1")
+	computer.AddComputerRoutes(v1)
 	r.Run(":8000")
 }
