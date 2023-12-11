@@ -1,0 +1,12 @@
+version: "3.6"
+
+services:
+  api:
+    image: golang:1.20
+    ports:
+      - 8000:8000
+    volumes:
+      - ./api:/go/src/api
+    working_dir: /go/src/api
+    restart: always
+    command: go run main.go
