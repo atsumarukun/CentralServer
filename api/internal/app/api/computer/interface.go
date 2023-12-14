@@ -1,6 +1,7 @@
 package computer
 
 import (
+	"strconv"
 	"net/http"
 	"github.com/gin-gonic/gin"
 )
@@ -20,11 +21,18 @@ func NewComputerHandler(uc ComputerUseCase) ComputerHandler {
 }
 
 func (h computerHandler) GetComputerById(c *gin.Context) {
-	computer, err := h.computerUseCase.GetComputerById(1)
+	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
+
+	computer, err := h.computerUseCase.GetComputerById(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"message": computer,
 	})

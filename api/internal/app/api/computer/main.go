@@ -9,6 +9,6 @@ func AddComputerRoutes(rg *gin.RouterGroup) {
 	useCase := NewComputerUseCase(infrastructure)
 	handler := NewComputerHandler(useCase)
 
-	computer := rg.Group("/computer")
+	computer := rg.Group("/computer/:id")
 	computer.GET("/", handler.GetComputerById)
 }
