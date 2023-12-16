@@ -5,8 +5,8 @@ import (
 	"api/internal/app/api/computer/domain/repository"
 	"api/internal/app/api/computer/dto/requests"
 	"api/internal/app/api/computer/dto/responses"
-	"api/internal/app/api/pkg/wol"
-	"api/internal/app/api/pkg/ping"
+	"api/internal/app/api/computer/pkg/wol"
+	"api/internal/app/api/computer/pkg/ping"
 )
 
 type ComputerUseCase interface {

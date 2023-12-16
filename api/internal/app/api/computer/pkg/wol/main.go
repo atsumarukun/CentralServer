@@ -3,7 +3,7 @@ package wol
 import (
 	"net"
 	"github.com/mdlayher/wol"
-	"api/internal/app/api/pkg/ip"
+	"api/internal/app/api/computer/pkg/ip"
 )
 
 func WakeOnLan(addr string, target string) error {
