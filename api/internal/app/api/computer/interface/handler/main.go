@@ -1,9 +1,10 @@
-package computer
+package handler
 
 import (
 	"strconv"
 	"net/http"
 	"github.com/gin-gonic/gin"
+	"api/internal/app/api/computer/usecase"
 )
 
 type ComputerHandler interface {
@@ -11,10 +12,10 @@ type ComputerHandler interface {
 }
 
 type computerHandler struct {
-	computerUseCase ComputerUseCase
+	computerUseCase usecase.ComputerUseCase
 }
 
-func NewComputerHandler(uc ComputerUseCase) ComputerHandler {
+func NewComputerHandler(uc usecase.ComputerUseCase) ComputerHandler {
 	return &computerHandler{
 		computerUseCase: uc,
 	}

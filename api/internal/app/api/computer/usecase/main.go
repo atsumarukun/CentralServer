@@ -1,4 +1,4 @@
-package computer
+package usecase
 
 import (
 	"api/internal/app/api/computer/domain"

@@ -1,4 +1,4 @@
-package computer
+package persistence
 
 import (
 	"api/internal/app/api/pkg/database"
@@ -6,13 +6,13 @@ import (
 	"api/internal/app/api/computer/domain/repository"
 )
 
-type computerInfrastructure struct{}
+type computerPersistence struct{}
 
-func NewComputerInfrastructure() repository.ComputerRepository {
-	return &computerInfrastructure{}
+func NewComputerPersistence() repository.ComputerRepository {
+	return &computerPersistence{}
 }
 
-func (_ computerInfrastructure) GetComputerById(id int) (*domain.Computer, error) {
+func (_ computerPersistence) GetComputerById(id int) (*domain.Computer, error) {
 	var computer domain.Computer
 	if err := database.DB.First(&computer, id).Error; err != nil {
 		return nil, err
