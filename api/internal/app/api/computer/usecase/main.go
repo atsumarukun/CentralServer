@@ -4,12 +4,14 @@ import (
 	"api/internal/app/api/computer/domain/repository"
 	"api/internal/app/api/computer/dto/requests"
 	"api/internal/app/api/computer/dto/responses"
+	"api/internal/app/api/pkg/wol"
 )
 
 type ComputerUseCase interface {
 	CreateComputer(request *requests.CreateComputerRequests) (*responses.ComputerResponse, error)
 	UpdateComputer(id int, request *requests.UpdateComputerRequests) (*responses.ComputerResponse, error)
 	DeleteComputer(id int) (*responses.ComputerResponse, error)
+	WakeOnLanComputer(id int) (*responses.ComputerResponse, error)
 	GetComputerAll() ([]responses.ComputerResponse, error)
 	GetComputerById(id int) (*responses.ComputerResponse, error)
 }
@@ -65,6 +67,19 @@ func (uc computerUseCase) DeleteComputer(id int) (*responses.ComputerResponse, e
 	if err != nil {
 		return nil, err
 	}
+	return responses.FromEntity(computer), nil
+}
+
+func (uc computerUseCase) WakeOnLanComputer(id int) (*responses.ComputerResponse, error) {
+	computer, err := uc.computerRepository.GetComputerById(id)
+	if err != nil {
+		return nil, err
+	}
+
+	if err = wol.WakeOnLan(computer.IPAddress, computer.MACAddress); err != nil {
+		return nil, err
+	}
+
 	return responses.FromEntity(computer), nil
 }
 

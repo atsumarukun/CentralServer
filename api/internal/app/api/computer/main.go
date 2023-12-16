@@ -18,4 +18,5 @@ func AddComputerRoutes(rg *gin.RouterGroup) {
 	computer.GET("/:id", handler.GetComputerById)
 	computer.PUT("/:id", handler.UpdateComputer)
 	computer.DELETE("/:id", handler.DeleteComputer)
+	computer.PUT("/:id/wol", handler.WakeOnLanComputer)
 }

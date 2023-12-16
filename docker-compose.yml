@@ -8,6 +8,7 @@ services:
     volumes:
       - ./api:/go/src/api
     working_dir: /go/src/api
+    network_mode: host
     restart: always
     depends_on:
       - db
