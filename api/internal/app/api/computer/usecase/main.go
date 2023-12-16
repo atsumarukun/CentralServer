@@ -22,6 +22,10 @@ func NewComputerUseCase(r repository.ComputerRepository) ComputerUseCase {
 }
 
 func (uc computerUseCase) CreateComputer(request *requests.CreateComputerRequests) (*responses.ComputerResponses, error) {
+	if err := request.Validate(); err != nil {
+		return nil, err
+	}
+
 	computer := request.ToEntity()
 	computer, err := uc.computerRepository.CreateComputer(computer)
 	if err != nil {
