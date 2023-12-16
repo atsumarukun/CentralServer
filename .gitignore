@@ -1,2 +1,5 @@
 # database
 /database
+
+# api environment file
+/api/.env

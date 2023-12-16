@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	database.ConnectDataBase()
+	database.Connect()
 
 	r := gin.Default()
 	v1 := r.Group("/api/v1")
