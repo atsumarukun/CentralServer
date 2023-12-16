@@ -19,6 +19,13 @@ func (_ computerPersistence) CreateComputer(computer *entities.Computer) (*entit
 	return computer, nil
 }
 
+func (_ computerPersistence) UpdateComputer(computer *entities.Computer) (*entities.Computer, error) {
+	if err := database.DB.Save(computer).Error; err != nil {
+		return nil, err
+	}
+	return computer, nil
+}
+
 func (_ computerPersistence) GetComputerById(id int) (*entities.Computer, error) {
 	var computer entities.Computer
 	if err := database.DB.First(&computer, id).Error; err != nil {

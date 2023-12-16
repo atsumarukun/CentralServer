@@ -15,4 +15,5 @@ func AddComputerRoutes(rg *gin.RouterGroup) {
 	computer := rg.Group("/computer")
 	computer.POST("/", handler.CreateComputer)
 	computer.GET("/:id", handler.GetComputerById)
+	computer.PUT("/:id", handler.UpdateComputer)
 }
