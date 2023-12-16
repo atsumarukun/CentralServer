@@ -12,6 +12,6 @@ func AddComputerRoutes(rg *gin.RouterGroup) {
 	useCase := usecase.NewComputerUseCase(persistence)
 	handler := handler.NewComputerHandler(useCase)
 
-	computer := rg.Group("/computer/:id")
-	computer.GET("/", handler.GetComputerById)
+	computer := rg.Group("/computer")
+	computer.GET("/:id", handler.GetComputerById)
 }
