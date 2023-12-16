@@ -12,6 +12,7 @@ type ComputerHandler interface {
 	CreateComputer(c *gin.Context)
 	UpdateComputer(c *gin.Context)
 	DeleteComputer(c *gin.Context)
+	GetComputerAll(c *gin.Context)
 	GetComputerById(c *gin.Context)
 }
 
@@ -82,6 +83,18 @@ func (h computerHandler) DeleteComputer(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"data": computer,
+	})
+}
+
+func (h computerHandler) GetComputerAll(c *gin.Context) {
+	computers, err := h.computerUseCase.GetComputerAll()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"data": computers,
 	})
 }
 

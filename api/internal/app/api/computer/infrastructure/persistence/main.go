@@ -33,6 +33,14 @@ func (_ computerPersistence) DeleteComputer(computer *entities.Computer) (*entit
 	return computer, nil
 }
 
+func (_ computerPersistence) GetComputerAll() ([]entities.Computer, error) {
+	var computers []entities.Computer
+	if err := database.DB.Find(&computers).Error; err != nil {
+		return nil, err
+	}
+	return computers, nil
+}
+
 func (_ computerPersistence) GetComputerById(id int) (*entities.Computer, error) {
 	var computer entities.Computer
 	if err := database.DB.First(&computer, id).Error; err != nil {

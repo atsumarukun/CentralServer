@@ -24,3 +24,11 @@ func FromEntity(computer *entities.Computer) *ComputerResponses {
 		UpdatedAt: computer.UpdatedAt,
 	}
 }
+
+func FromEntities(computers []entities.Computer) []ComputerResponses {
+	var response []ComputerResponses
+	for _, computer := range computers {
+		response = append(response, *FromEntity(&computer))
+	}
+	return response
+}
