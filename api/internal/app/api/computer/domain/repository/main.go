@@ -7,5 +7,6 @@ import (
 type ComputerRepository interface {
 	CreateComputer(computer *entities.Computer) (*entities.Computer, error)
 	UpdateComputer(computer *entities.Computer) (*entities.Computer, error)
+	DeleteComputer(computer *entities.Computer) (*entities.Computer, error)
 	GetComputerById(id int) (*entities.Computer, error)
 }
