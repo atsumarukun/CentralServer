@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"time"
 	"api/internal/app/api/computer/domain/repository"
 	"api/internal/app/api/computer/dto/requests"
 	"api/internal/app/api/computer/dto/responses"
@@ -81,7 +82,22 @@ func (uc computerUseCase) WakeOnLanComputer(id int) (*responses.ComputerResponse
 		return nil, err
 	}
 
-	return responses.FromEntity(computer), nil
+	response := responses.FromEntity(computer)
+
+	for {
+		statistics, err := ping.Send(computer.IPAddress)
+		if err != nil {
+			return nil, err
+		}
+		running := statistics.PacketsRecv == statistics.PacketsSent
+		if running {
+			response.Running = &running
+			break
+		}
+		time.Sleep(1)
+	}
+
+	return response, nil
 }
 
 func (uc computerUseCase) GetComputerAll() ([]responses.ComputerResponse, error) {
