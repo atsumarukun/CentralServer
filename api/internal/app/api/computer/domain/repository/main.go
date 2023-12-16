@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"api/internal/app/api/computer/domain"
+	"api/internal/app/api/computer/domain/entities"
 )
 
 type ComputerRepository interface {
-	GetComputerById(id int) (*domain.Computer, error)
+	GetComputerById(id int) (*entities.Computer, error)
 }

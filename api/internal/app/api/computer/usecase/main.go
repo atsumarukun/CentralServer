@@ -1,12 +1,12 @@
 package usecase
 
 import (
-	"api/internal/app/api/computer/domain"
+	"api/internal/app/api/computer/domain/entities"
 	"api/internal/app/api/computer/domain/repository"
 )
 
 type ComputerUseCase interface {
-	GetComputerById(id int) (*domain.Computer, error)
+	GetComputerById(id int) (*entities.Computer, error)
 }
 
 type computerUseCase struct {
@@ -19,6 +19,6 @@ func NewComputerUseCase(r repository.ComputerRepository) ComputerUseCase {
 	}
 }
 
-func (uc computerUseCase) GetComputerById(id int) (*domain.Computer, error) {
+func (uc computerUseCase) GetComputerById(id int) (*entities.Computer, error) {
 	return uc.computerRepository.GetComputerById(id)
 }
