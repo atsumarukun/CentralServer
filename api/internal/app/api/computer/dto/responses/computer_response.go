@@ -10,6 +10,7 @@ type ComputerResponse struct {
 	HostName     string    `json:"host_name"`
 	IPAddress    string    `json:"ip_address"`
 	MACAddress   string    `json:"mac_address"`
+	Running      *bool     `json:"running"`
   CreatedAt    time.Time `json:"created_at"`
   UpdatedAt    time.Time `json:"updated_at"`
 }

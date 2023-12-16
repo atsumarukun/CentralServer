@@ -5,6 +5,7 @@ import (
 	"api/internal/app/api/computer/dto/requests"
 	"api/internal/app/api/computer/dto/responses"
 	"api/internal/app/api/pkg/wol"
+	"api/internal/app/api/pkg/ping"
 )
 
 type ComputerUseCase interface {
@@ -88,7 +89,18 @@ func (uc computerUseCase) GetComputerAll() ([]responses.ComputerResponse, error)
 	if err != nil {
 		return nil, err
 	}
-	return responses.FromEntities(computers), nil
+
+	response := responses.FromEntities(computers)
+	for i := 0; i < len(response); i++ {
+		statistics, err := ping.Send(response[i].IPAddress)
+		if err != nil {
+			return nil, err
+		}
+		running := statistics.PacketsRecv == statistics.PacketsSent
+
+		response[i].Running = &running
+	}
+	return response, nil
 }
 
 func (uc computerUseCase) GetComputerById(id int) (*responses.ComputerResponse, error) {
@@ -96,5 +108,14 @@ func (uc computerUseCase) GetComputerById(id int) (*responses.ComputerResponse, 
 	if err != nil {
 		return nil, err
 	}
-	return responses.FromEntity(computer), nil
+
+	statistics, err := ping.Send(computer.IPAddress)
+	if err != nil {
+		return nil, err
+	}
+	running := statistics.PacketsRecv == statistics.PacketsSent
+
+	response := responses.FromEntity(computer)
+	response.Running = &running
+	return response, nil
 }
