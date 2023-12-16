@@ -39,7 +39,7 @@ func (h computerHandler) CreateComputer(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": computer,
+		"data": computer,
 	})
 }
 
@@ -63,7 +63,7 @@ func (h computerHandler) UpdateComputer(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": computer,
+		"data": computer,
 	})
 }
 
@@ -81,7 +81,7 @@ func (h computerHandler) DeleteComputer(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": computer,
+		"data": computer,
 	})
 }
 
@@ -99,6 +99,6 @@ func (h computerHandler) GetComputerById(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": computer,
+		"data": computer,
 	})
 }
