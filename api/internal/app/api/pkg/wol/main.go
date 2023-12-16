@@ -1,7 +1,6 @@
 package wol
 
 import (
-	"fmt"
 	"net"
 	"github.com/mdlayher/wol"
 	"api/internal/app/api/pkg/ip"
@@ -16,7 +15,6 @@ func WakeOnLan(addr string, target string) error {
 	if ip.IsPrivateIP(net.ParseIP(addr)) {
 		addr = "255.255.255.255"
 	}
-	fmt.Println(addr + ":9")
 
 	client, err := wol.NewClient()
 	if err != nil {
