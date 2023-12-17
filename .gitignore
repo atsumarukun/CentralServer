@@ -1,5 +1,11 @@
 # database
 /database
 
-# api environment file
-/api/.env
+# environment file
+.env
+
+# node modules
+/web/node_modules
+
+# compiled files
+/web/.next

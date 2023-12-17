@@ -1,6 +1,16 @@
 version: "3.6"
 
 services:
+  web:
+    image: node:20.10
+    ports:
+      - 3000:3000
+    volumes:
+      - ./web:/web
+    working_dir: /web
+    restart: always
+    command: npm run dev
+
   api:
     image: golang:1.20
     ports:
