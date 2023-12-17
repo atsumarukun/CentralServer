@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { ChakraProvider } from "@chakra-ui/react";
+import { theme } from "@/styles";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,7 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body>{children}</body>
+      <body>
+        <ChakraProvider cssVarsRoot="body" theme={theme}>
+          {children}
+        </ChakraProvider>
+      </body>
     </html>
   );
 }
