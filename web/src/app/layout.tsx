@@ -2,6 +2,8 @@
 
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "@/styles";
+import { Header } from "@/components/layouts/Header";
+import { Layout } from "@/components/layouts/Layout";
 
 export default function RootLayout({
   children,
@@ -12,7 +14,7 @@ export default function RootLayout({
     <html lang="ja">
       <body>
         <ChakraProvider cssVarsRoot="body" theme={theme}>
-          {children}
+          <Layout>{children}</Layout>
         </ChakraProvider>
       </body>
     </html>
