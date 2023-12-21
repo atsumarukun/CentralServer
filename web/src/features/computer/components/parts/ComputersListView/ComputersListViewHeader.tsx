@@ -1,9 +1,16 @@
 import { Button, Grid, GridItem, HStack, Icon, Text } from "@chakra-ui/react";
-import { MdCheckBoxOutlineBlank, MdMoreHoriz } from "react-icons/md";
+import { MdCheckBoxOutlineBlank, MdMoreVert } from "react-icons/md";
 
 export function ComputersListViewHeader() {
   return (
-    <HStack spacing={4} px={6} py={3} fontWeight="bold" borderBottomWidth="1px">
+    <HStack
+      spacing={4}
+      px={2}
+      py={3}
+      fontWeight="bold"
+      borderBottomWidth="1px"
+      borderBottomColor="whiteAlpha.500"
+    >
       <Button size="xs" variant="unstyle">
         <Icon as={MdCheckBoxOutlineBlank} boxSize={6} />
       </Button>
@@ -22,7 +29,7 @@ export function ComputersListViewHeader() {
         </GridItem>
       </Grid>
       <Button size="xs" variant="unstyle">
-        <Icon as={MdMoreHoriz} boxSize={6} />
+        <Icon as={MdMoreVert} boxSize={6} />
       </Button>
     </HStack>
   );
