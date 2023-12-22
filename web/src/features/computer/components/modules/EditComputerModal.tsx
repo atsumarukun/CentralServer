@@ -14,34 +14,38 @@ import { ComputerForm } from "./ComputerForm";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ComputerFormShema, computerFormShema } from "./ComputerForm/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { GetComputers, useCreateComputer } from "../../hooks/request";
+import { GetComputers, useEditComputer } from "../../hooks/request";
+import { Computer } from "../../computer";
 
 type Props = {
+  computer: Computer;
   isOpen: boolean;
   onClose: () => void;
 };
 
-export function CreateComputerModal({ isOpen, onClose }: Props) {
+export function EditComputerModal({ computer, isOpen, onClose }: Props) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
-      <CreateComputerModalContent onClose={onClose} />
+      <EditComputerModalContent computer={computer} onClose={onClose} />
     </Modal>
   );
 }
 
 type ContentProps = {
+  computer: Computer;
   onClose: () => void;
 };
 
-function CreateComputerModalContent({ onClose }: ContentProps) {
+function EditComputerModalContent({ computer, onClose }: ContentProps) {
   const toast = useToast();
 
   const useFormReturnValue = useForm<ComputerFormShema>({
     resolver: zodResolver(computerFormShema),
   });
 
-  const [create] = useCreateComputer({
+  const [edit] = useEditComputer({
+    id: computer.id,
     onCompleted: () => {
       toast({
         title: "登録しました",
@@ -64,7 +68,7 @@ function CreateComputerModalContent({ onClose }: ContentProps) {
   });
 
   const onSubmit: SubmitHandler<ComputerFormShema> = (input) => {
-    create({
+    edit({
       input,
     });
   };
@@ -74,10 +78,13 @@ function CreateComputerModalContent({ onClose }: ContentProps) {
       as={chakra.form}
       onSubmit={useFormReturnValue.handleSubmit(onSubmit)}
     >
-      <ModalHeader>作成</ModalHeader>
+      <ModalHeader>{computer.host_name}</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
-        <ComputerForm useFormReturnValue={useFormReturnValue} />
+        <ComputerForm
+          computer={computer}
+          useFormReturnValue={useFormReturnValue}
+        />
       </ModalBody>
       <ModalFooter>
         <Button variant="unstyle" type="submit">

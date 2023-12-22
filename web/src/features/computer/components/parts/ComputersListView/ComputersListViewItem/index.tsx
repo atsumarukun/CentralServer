@@ -1,12 +1,30 @@
 import { Computer } from "@/features/computer/computer";
-import { Circle, Grid, GridItem, HStack, Text, Link } from "@chakra-ui/react";
+import {
+  Circle,
+  Grid,
+  GridItem,
+  HStack,
+  Text,
+  Link,
+  Button,
+  Icon,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { ComputersListViewItemMenu } from "./ComputersListViewItemMenu";
+import { MdEdit } from "react-icons/md";
+import { EditComputerModal } from "../../../modules/EditComputerModal";
 
 type Props = {
   computer: Computer;
 };
 
 export function ComputersListViewItem({ computer }: Props) {
+  const {
+    isOpen: isEditComputerModalOpen,
+    onOpen: onEditComputerModalOpen,
+    onClose: onEditComputerModalClose,
+  } = useDisclosure();
+
   return (
     <HStack
       spacing={4}
@@ -45,7 +63,17 @@ export function ComputersListViewItem({ computer }: Props) {
           <Text>{computer.mac_address}</Text>
         </GridItem>
       </Grid>
-      <ComputersListViewItemMenu computer={computer} />
+      <HStack spacing={0}>
+        <Button variant="unstyle" onClick={onEditComputerModalOpen}>
+          <Icon as={MdEdit} boxSize={6} />
+        </Button>
+        <EditComputerModal
+          computer={computer}
+          isOpen={isEditComputerModalOpen}
+          onClose={onEditComputerModalClose}
+        />
+        <ComputersListViewItemMenu computer={computer} />
+      </HStack>
     </HStack>
   );
 }

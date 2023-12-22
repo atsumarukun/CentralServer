@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack, Text } from "@chakra-ui/react";
+import { Box, Grid, GridItem, HStack, Text } from "@chakra-ui/react";
 import { ComputersListViewHeaderMenu } from "./ComputersListViewHeaderMenu";
 
 export function ComputersListViewHeader() {
@@ -32,7 +32,10 @@ export function ComputersListViewHeader() {
           <Text>MACアドレス</Text>
         </GridItem>
       </Grid>
-      <ComputersListViewHeaderMenu />
+      <HStack spacing={0}>
+        <Box boxSize={10} />
+        <ComputersListViewHeaderMenu />
+      </HStack>
     </HStack>
   );
 }

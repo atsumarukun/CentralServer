@@ -48,6 +48,26 @@ export function useCreateComputer({ input, ...props }: CreateComputerProps) {
   });
 }
 
+type EditComputerProps = {
+  id: number;
+  input?: {
+    host_name: string;
+    ip_address: string;
+    mac_address: string;
+  };
+} & RequestCallbacks<Computer>;
+
+export function useEditComputer({ id, input, ...props }: EditComputerProps) {
+  return useRequest<Computer, EditComputerProps["input"]>({
+    path: `computer/${id}`,
+    method: {
+      method: "PUT",
+      body: JSON.stringify(input),
+    },
+    ...props,
+  });
+}
+
 type RemoveComputerProps = {
   id: number;
 } & RequestCallbacks<Computer>;
