@@ -15,6 +15,12 @@ func main() {
 		AllowOrigins: []string{
 			"*",
 		},
+		AllowMethods: []string{
+			"GET",
+			"POST",
+			"PUT",
+			"DELETE",
+	},
 	}))
 	v1 := r.Group("/api/v1")
 	computer.AddComputerRoutes(v1)

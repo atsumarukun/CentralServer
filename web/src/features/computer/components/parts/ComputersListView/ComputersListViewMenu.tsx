@@ -7,14 +7,27 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { MdMoreVert } from "react-icons/md";
 import { VscDebugStart } from "react-icons/vsc";
 import { VscDebugStop } from "react-icons/vsc";
 import { VscDebugRestart } from "react-icons/vsc";
 import { LuTrash } from "react-icons/lu";
+import { RemoveComputerAlert } from "../../modules/RemoveComputerAlert";
+import { Computer } from "@/features/computer/computer";
 
-export function ComputersListViewMenu() {
+type Props = {
+  computer: Computer;
+};
+
+export function ComputersListViewMenu({ computer }: Props) {
+  const {
+    isOpen: isRemoveComputerAlertOpen,
+    onOpen: onRemoveComputerAlertOpen,
+    onClose: onRemoveComputerAlertClose,
+  } = useDisclosure();
+
   return (
     <Menu>
       <MenuButton as={Button} size="xs" variant="unstyle">
@@ -31,9 +44,19 @@ export function ComputersListViewMenu() {
           再起動
         </MenuItem>
         <MenuDivider />
-        <MenuItem color="red.400" icon={<Icon as={LuTrash} boxSize={5} />}>
+        <MenuItem
+          color="red.400"
+          icon={<Icon as={LuTrash} boxSize={5} />}
+          onClick={onRemoveComputerAlertOpen}
+        >
           削除
         </MenuItem>
+        <RemoveComputerAlert
+          id={computer.id}
+          hostName={computer.host_name}
+          isOpen={isRemoveComputerAlertOpen}
+          onClose={onRemoveComputerAlertClose}
+        />
       </MenuList>
     </Menu>
   );

@@ -54,7 +54,7 @@ export function ComputersListViewItem({ computer }: Props) {
           <Text>{computer.mac_address}</Text>
         </GridItem>
       </Grid>
-      <ComputersListViewMenu />
+      <ComputersListViewMenu computer={computer} />
     </HStack>
   );
 }
