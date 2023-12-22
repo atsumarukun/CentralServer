@@ -5,6 +5,7 @@ import { Link } from "./components/Link";
 import { Drawer } from "./components/Drawer";
 import { Menu } from "./components/Menu";
 import { Modal } from "./components/Modal";
+import { Text } from "./components/Text";
 
 export const theme = extendTheme({
   styles,
@@ -14,5 +15,6 @@ export const theme = extendTheme({
     Drawer,
     Menu,
     Modal,
+    Text,
   }
 });

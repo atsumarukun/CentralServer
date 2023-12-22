@@ -17,9 +17,9 @@ const baseStyle = definePartsStyle({
   footer: {
     color: "rgb(255, 255, 255)",
     bgColor: "rgb(53, 53, 53)",
-  }
+  },
 });
 
 export const Modal = defineMultiStyleConfig({
-  baseStyle
+  baseStyle,
 });

@@ -14,7 +14,10 @@ export type RequestCallbacks<T> = {
   onError?: (err: RequestError) => void;
 };
 
-export type RequestMethod = "GET" | "POST" | "PUT" | "DELETE";
+export type RequestMethod =
+  | "GET"
+  | "DELETE"
+  | { method: "POST" | "PUT"; body: string };
 
 type RequestProps<T> = {
   path: string;
@@ -49,7 +52,16 @@ export class RequestClient {
   }: RequestProps<T>) {
     setLoading(true);
 
-    await fetch(this.url + path, { method })
+    const requestMethod = typeof method === "string" ? method : method?.method;
+    const headers =
+      typeof method === "string"
+        ? undefined
+        : {
+            Accept: "application/json",
+          };
+    const body = typeof method === "string" ? undefined : method?.body;
+
+    await fetch(this.url + path, { method: requestMethod, headers, body })
       .then(async (res) => {
         const data: { data: T } | { error: string } = await res.json();
         if ("error" in data) throw new RequestError(data.error);

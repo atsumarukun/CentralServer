@@ -6,11 +6,19 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { MdMoreVert } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
+import { CreateComputerModal } from "../../../modules/CreateComputerModal";
 
 export function ComputersListViewHeaderMenu() {
+  const {
+    isOpen: isCreateComputerModalOpen,
+    onOpen: onCreateComputerModalOpen,
+    onClose: onCreateComputerModalClose,
+  } = useDisclosure();
+
   return (
     <Menu>
       <MenuButton as={Button} size="xs" variant="unstyle">
@@ -19,7 +27,16 @@ export function ComputersListViewHeaderMenu() {
         </HStack>
       </MenuButton>
       <MenuList>
-        <MenuItem icon={<Icon as={FiPlus} boxSize={5} />}>登録</MenuItem>
+        <MenuItem
+          icon={<Icon as={FiPlus} boxSize={5} />}
+          onClick={onCreateComputerModalOpen}
+        >
+          登録
+        </MenuItem>
+        <CreateComputerModal
+          isOpen={isCreateComputerModalOpen}
+          onClose={onCreateComputerModalClose}
+        />
       </MenuList>
     </Menu>
   );
