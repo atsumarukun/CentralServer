@@ -14,14 +14,14 @@ import { VscDebugStart } from "react-icons/vsc";
 import { VscDebugStop } from "react-icons/vsc";
 import { VscDebugRestart } from "react-icons/vsc";
 import { LuTrash } from "react-icons/lu";
-import { RemoveComputerAlert } from "../../modules/RemoveComputerAlert";
 import { Computer } from "@/features/computer/computer";
+import { RemoveComputerAlert } from "../../../modules/RemoveComputerAlert";
 
 type Props = {
   computer: Computer;
 };
 
-export function ComputersListViewMenu({ computer }: Props) {
+export function ComputersListViewItemMenu({ computer }: Props) {
   const {
     isOpen: isRemoveComputerAlertOpen,
     onOpen: onRemoveComputerAlertOpen,

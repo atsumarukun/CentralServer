@@ -1,16 +1,6 @@
 import { Computer } from "@/features/computer/computer";
-import {
-  Button,
-  Circle,
-  Grid,
-  GridItem,
-  HStack,
-  Icon,
-  Text,
-  Link,
-} from "@chakra-ui/react";
-import { MdCheckBoxOutlineBlank } from "react-icons/md";
-import { ComputersListViewMenu } from "./ComputersListViewMenu";
+import { Circle, Grid, GridItem, HStack, Text, Link } from "@chakra-ui/react";
+import { ComputersListViewItemMenu } from "./ComputersListViewItemMenu";
 
 type Props = {
   computer: Computer;
@@ -20,13 +10,10 @@ export function ComputersListViewItem({ computer }: Props) {
   return (
     <HStack
       spacing={4}
-      px={2}
+      px={3}
       borderBottomWidth="1px"
       borderBottomColor="whiteAlpha.500"
     >
-      <Button size="xs" variant="unstyle">
-        <Icon as={MdCheckBoxOutlineBlank} boxSize={6} />
-      </Button>
       <Grid
         as={Link}
         href={`/computer/${computer.id}`}
@@ -54,7 +41,7 @@ export function ComputersListViewItem({ computer }: Props) {
           <Text>{computer.mac_address}</Text>
         </GridItem>
       </Grid>
-      <ComputersListViewMenu computer={computer} />
+      <ComputersListViewItemMenu computer={computer} />
     </HStack>
   );
 }
