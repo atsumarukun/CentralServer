@@ -8,6 +8,7 @@ import {
   MenuItem,
   MenuList,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { MdMoreVert } from "react-icons/md";
 import { VscDebugStart } from "react-icons/vsc";
@@ -16,17 +17,52 @@ import { VscDebugRestart } from "react-icons/vsc";
 import { LuTrash } from "react-icons/lu";
 import { Computer } from "@/features/computer/computer";
 import { RemoveComputerAlert } from "../../../modules/RemoveComputerAlert";
+import {
+  GetComputers,
+  useWakeOnLanComputer,
+} from "@/features/computer/hooks/request";
 
 type Props = {
   computer: Computer;
+  setLoading: (loading: boolean) => void;
 };
 
-export function ComputersListViewItemMenu({ computer }: Props) {
+export function ComputersListViewItemMenu({ computer, setLoading }: Props) {
+  const toast = useToast();
+
   const {
     isOpen: isRemoveComputerAlertOpen,
     onOpen: onRemoveComputerAlertOpen,
     onClose: onRemoveComputerAlertClose,
   } = useDisclosure();
+
+  const [wol, { loading }] = useWakeOnLanComputer({
+    id: computer.id,
+    onCompleted: () => {
+      toast({
+        title: "起動しました",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+      setLoading(loading);
+    },
+    onError: (err) => {
+      toast({
+        title: "エラーが発生しました",
+        description: err.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+    refetchRequests: [GetComputers],
+  });
+
+  const handleWakeOnLan = () => {
+    setLoading(loading);
+    wol();
+  };
 
   return (
     <Menu>
@@ -36,7 +72,12 @@ export function ComputersListViewItemMenu({ computer }: Props) {
         </HStack>
       </MenuButton>
       <MenuList>
-        <MenuItem icon={<Icon as={VscDebugStart} boxSize={5} />}>起動</MenuItem>
+        <MenuItem
+          icon={<Icon as={VscDebugStart} boxSize={5} />}
+          onClick={handleWakeOnLan}
+        >
+          起動
+        </MenuItem>
         <MenuItem icon={<Icon as={VscDebugStop} boxSize={5} />} isDisabled>
           停止
         </MenuItem>

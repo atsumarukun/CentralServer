@@ -17,7 +17,7 @@ export type RequestCallbacks<T> = {
 export type RequestMethod =
   | "GET"
   | "DELETE"
-  | { method: "POST" | "PUT"; body: string };
+  | { method: "POST" | "PUT"; body?: string };
 
 type RequestProps<T> = {
   path: string;

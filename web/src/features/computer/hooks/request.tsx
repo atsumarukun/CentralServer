@@ -82,3 +82,17 @@ export function useRemoveComputer({
     ...props,
   });
 }
+
+type WakeOnLanComputerProps = {
+  id: number;
+} & RequestCallbacks<Computer>;
+
+export function useWakeOnLanComputer({ id, ...props }: WakeOnLanComputerProps) {
+  return useRequest<Computer, undefined>({
+    path: `computer/${id}/wol`,
+    method: {
+      method: "PUT",
+    },
+    ...props,
+  });
+}
