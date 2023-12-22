@@ -10,7 +10,7 @@ export function ComputerIndexPage() {
   const { loading, error, data } = useGetComputers();
 
   if (loading) return <LoadingSpinner />;
-  if (!error || !data)
+  if (error || !data)
     return (
       <ErrorStatus
         icon={MdOutlineDesktopAccessDisabled}
