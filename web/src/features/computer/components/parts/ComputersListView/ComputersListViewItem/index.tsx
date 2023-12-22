@@ -63,8 +63,8 @@ export function ComputersListViewItem({ computer }: Props) {
           <Text>{computer.mac_address}</Text>
         </GridItem>
       </Grid>
-      <HStack spacing={0}>
-        <Button variant="unstyle" onClick={onEditComputerModalOpen}>
+      <HStack>
+        <Button size="xs" variant="unstyle" onClick={onEditComputerModalOpen}>
           <Icon as={MdEdit} boxSize={6} />
         </Button>
         <EditComputerModal

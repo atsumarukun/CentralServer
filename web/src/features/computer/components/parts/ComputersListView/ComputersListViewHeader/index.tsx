@@ -7,6 +7,7 @@ export function ComputersListViewHeader() {
       spacing={4}
       p={3}
       fontWeight="bold"
+      bgColor="whiteAlpha.100"
       borderBottomWidth="1px"
       borderBottomColor="whiteAlpha.500"
     >
@@ -32,8 +33,8 @@ export function ComputersListViewHeader() {
           <Text>MACアドレス</Text>
         </GridItem>
       </Grid>
-      <HStack spacing={0}>
-        <Box boxSize={10} />
+      <HStack>
+        <Box boxSize={6} />
         <ComputersListViewHeaderMenu />
       </HStack>
     </HStack>

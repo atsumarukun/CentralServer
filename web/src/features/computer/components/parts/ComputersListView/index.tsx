@@ -11,7 +11,7 @@ type Props = {
 
 export function ComputersListView({ computers }: Props) {
   return (
-    <Stack spacing={0} mx={4}>
+    <Stack spacing={0} mx={4} my={4}>
       <ComputersListViewHeader />
       {computers.map((v) => (
         <ComputersListViewItem computer={v} key={v.id} />
