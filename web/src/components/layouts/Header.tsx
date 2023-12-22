@@ -1,6 +1,7 @@
-import { Button, HStack, Icon, Link, useDisclosure } from "@chakra-ui/react";
+import { Button, HStack, Icon, Text, useDisclosure } from "@chakra-ui/react";
 import { IoMdMenu } from "react-icons/io";
 import { MenuDrawer } from "./MenuDrawer";
+import Link from "next/link";
 
 export const HeaderHeight = "46px";
 
@@ -13,9 +14,9 @@ export function Header() {
         <Icon as={IoMdMenu} boxSize={6} />
       </Button>
       <MenuDrawer isOpen={isOpen} onClose={onClose} />
-      <Link href="/" fontSize="xl" p={2}>
+      <Text as={Link} href="/" fontSize="xl" p={2}>
         CentralServer
-      </Link>
+      </Text>
     </HStack>
   );
 }

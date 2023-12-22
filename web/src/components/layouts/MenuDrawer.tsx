@@ -1,6 +1,5 @@
 import {
   Button,
-  Center,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -8,13 +7,15 @@ import {
   DrawerOverlay,
   HStack,
   Icon,
-  Link,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { IoMdMenu } from "react-icons/io";
 import { MdOutlineDesktopWindows } from "react-icons/md";
 import { IconLink } from "../parts/IconLink";
+import Link from "next/link";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 type Props = {
   isOpen: boolean;
@@ -22,6 +23,12 @@ type Props = {
 };
 
 export function MenuDrawer({ isOpen, onClose }: Props) {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    onClose();
+  }, [pathname]);
+
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="left">
       <DrawerOverlay />
@@ -31,9 +38,9 @@ export function MenuDrawer({ isOpen, onClose }: Props) {
             <Button variant="unstyle" size="xs" onClick={onClose}>
               <Icon as={IoMdMenu} boxSize={6} />
             </Button>
-            <Link href="/" fontSize="xl" p={2}>
+            <Text as={Link} href="/" fontSize="xl" p={2}>
               CentralServer
-            </Link>
+            </Text>
           </HStack>
         </DrawerHeader>
         <DrawerBody>

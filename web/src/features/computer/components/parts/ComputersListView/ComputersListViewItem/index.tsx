@@ -5,7 +5,6 @@ import {
   GridItem,
   HStack,
   Text,
-  Link,
   Button,
   Icon,
   useDisclosure,
@@ -14,6 +13,7 @@ import { ComputersListViewItemMenu } from "./ComputersListViewItemMenu";
 import { MdEdit } from "react-icons/md";
 import { EditComputerModal } from "../../../modules/EditComputerModal";
 import { useState } from "react";
+import Link from "next/link";
 
 type Props = {
   computer: Computer;
