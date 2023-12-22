@@ -20,7 +20,11 @@ export function ComputersListViewItem({ computer }: Props) {
         gap={4}
         py={3}
         flexGrow={1}
-        templateColumns="repeat(5, 1fr)"
+        templateColumns={{
+          base: "repeat(3, 1fr)",
+          md: "repeat(4, 1fr)",
+          lg: "repeat(5, 1fr)",
+        }}
       >
         <GridItem colSpan={2}>
           <Text>{computer.host_name}</Text>
@@ -34,10 +38,10 @@ export function ComputersListViewItem({ computer }: Props) {
             <Text>{computer.running ? "Running" : "Stopped"}</Text>
           </HStack>
         </GridItem>
-        <GridItem>
+        <GridItem display={{ base: "none", md: "block" }}>
           <Text>{computer.ip_address}</Text>
         </GridItem>
-        <GridItem>
+        <GridItem display={{ base: "none", lg: "block" }}>
           <Text>{computer.mac_address}</Text>
         </GridItem>
       </Grid>
