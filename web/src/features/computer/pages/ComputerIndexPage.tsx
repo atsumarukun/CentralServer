@@ -1,7 +1,7 @@
 "use client";
 
 import { LoadingSpinner } from "@/components/parts/LoadingSpinner";
-import { useGetComputers } from "../hooks/fetch";
+import { useGetComputers } from "../hooks/request";
 import { MdOutlineDesktopAccessDisabled } from "react-icons/md";
 import { ErrorStatus } from "@/components/parts/ErrorStatus";
 import { ComputersListView } from "../components/parts/ComputersListView";

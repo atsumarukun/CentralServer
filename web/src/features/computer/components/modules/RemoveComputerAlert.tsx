@@ -9,7 +9,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { MutableRefObject, useRef } from "react";
-import { GetComputers, useRemoveComputer } from "../../hooks/fetch";
+import { GetComputers, useRemoveComputer } from "../../hooks/request";
 
 type Props = {
   id: number;
@@ -72,7 +72,7 @@ function RemoveComputerAlertContent({
         isClosable: true,
       });
     },
-    refetchFunctions: [GetComputers],
+    refetchRequests: [GetComputers],
   });
 
   return (
