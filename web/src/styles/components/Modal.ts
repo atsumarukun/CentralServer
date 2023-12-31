@@ -5,6 +5,9 @@ const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(parts.keys)
 
 const baseStyle = definePartsStyle({
+  dialog: {
+    mx: 4
+  },
   header: {
     color: "rgb(255, 255, 255)",
     bgColor: "rgb(53, 53, 53)",
