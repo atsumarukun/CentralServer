@@ -2,8 +2,6 @@ import { Stack } from "@chakra-ui/react";
 import { ComputersListViewItem } from "./ComputersListViewItem";
 import { Computer } from "@/features/computer/computer";
 import { ComputersListViewHeader } from "./ComputersListViewHeader";
-import { useContext } from "react";
-import { RequestContext } from "@/providers/request";
 
 type Props = {
   computers: Computer[];

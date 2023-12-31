@@ -27,7 +27,7 @@ export function MenuDrawer({ isOpen, onClose }: Props) {
 
   useEffect(() => {
     onClose();
-  }, [pathname]);
+  }, [onClose, pathname]);
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="left">

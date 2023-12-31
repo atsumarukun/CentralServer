@@ -22,7 +22,7 @@ export function ComputerForm({ computer, useFormReturnValue }: Props) {
       setValue("ip_address", computer.ip_address);
       setValue("mac_address", computer.mac_address);
     }
-  }, [computer]);
+  }, [computer, setValue]);
 
   return (
     <Stack spacing={6}>

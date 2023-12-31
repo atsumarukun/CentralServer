@@ -19,7 +19,7 @@ export function useGetComputers() {
       request();
       firstRef.current = false;
     }
-  }, []);
+  }, [request]);
 
   return {
     loading,

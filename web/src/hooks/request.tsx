@@ -4,7 +4,7 @@ import {
   RequestError,
   RequestMethod,
 } from "@/providers/request";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 type Props<T> = {
   path: string;
@@ -20,11 +20,9 @@ export type UseRequestReturn<T, U> = [
   }
 ];
 
-type Input<T> =
-  | {
-      input: T;
-    }
-  | undefined;
+type Input<T> = {
+  input: T;
+};
 
 export function useRequest<T, U>({
   path,
@@ -38,25 +36,29 @@ export function useRequest<T, U>({
   const [error, setError] = useState<RequestError>();
   const [data, setData] = useState<T>();
 
-  const request = async (...input: Input<U>[]) => {
-    if (input.length && method !== undefined && typeof method !== "string")
-      method = { method: method.method, body: JSON.stringify(input[0]?.input) };
-    context.client?.request({
-      path,
-      method,
-      ...props,
-      setLoading,
-      setError,
-      setData,
-    });
-  };
+  const request = useCallback(
+    async (input?: Input<U>) => {
+      context.client?.request({
+        path,
+        method:
+          method !== undefined && typeof method !== "string"
+            ? { method: method.method, body: JSON.stringify(input?.input) }
+            : method,
+        ...props,
+        setLoading,
+        setError,
+        setData,
+      });
+    },
+    [context.client, method, path, props]
+  );
 
   useEffect(() => {
     if (firstRef.current && (!method || method == "GET")) {
       context.client?.setRequests(path, request);
       firstRef.current = false;
     }
-  }, [path]);
+  }, [context.client, method, path, request]);
 
   return [
     request,
