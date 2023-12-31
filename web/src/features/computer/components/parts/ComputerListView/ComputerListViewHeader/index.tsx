@@ -1,7 +1,7 @@
 import { Box, Grid, GridItem, HStack, Text } from "@chakra-ui/react";
-import { ComputersListViewHeaderMenu } from "./ComputersListViewHeaderMenu";
+import { ComputerListViewHeaderMenu } from "./ComputersListViewHeaderMenu";
 
-export function ComputersListViewHeader() {
+export function ComputerListViewHeader() {
   return (
     <HStack
       spacing={4}
@@ -35,7 +35,7 @@ export function ComputersListViewHeader() {
       </Grid>
       <HStack>
         <Box boxSize={6} />
-        <ComputersListViewHeaderMenu />
+        <ComputerListViewHeaderMenu />
       </HStack>
     </HStack>
   );

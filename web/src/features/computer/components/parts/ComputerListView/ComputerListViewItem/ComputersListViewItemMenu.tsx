@@ -27,7 +27,7 @@ type Props = {
   setLoading: (loading: boolean) => void;
 };
 
-export function ComputersListViewItemMenu({ computer, setLoading }: Props) {
+export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
   const toast = useToast();
 
   const {

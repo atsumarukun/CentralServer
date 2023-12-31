@@ -9,7 +9,7 @@ import {
   Icon,
   useDisclosure,
 } from "@chakra-ui/react";
-import { ComputersListViewItemMenu } from "./ComputersListViewItemMenu";
+import { ComputerListViewItemMenu } from "./ComputersListViewItemMenu";
 import { MdEdit } from "react-icons/md";
 import { EditComputerModal } from "../../../modules/EditComputerModal";
 import { useState } from "react";
@@ -19,7 +19,7 @@ type Props = {
   computer: Computer;
 };
 
-export function ComputersListViewItem({ computer }: Props) {
+export function ComputerListViewItem({ computer }: Props) {
   const [loading, setLoading] = useState(false);
 
   const {
@@ -83,10 +83,7 @@ export function ComputersListViewItem({ computer }: Props) {
           isOpen={isEditComputerModalOpen}
           onClose={onEditComputerModalClose}
         />
-        <ComputersListViewItemMenu
-          computer={computer}
-          setLoading={setLoading}
-        />
+        <ComputerListViewItemMenu computer={computer} setLoading={setLoading} />
       </HStack>
     </HStack>
   );

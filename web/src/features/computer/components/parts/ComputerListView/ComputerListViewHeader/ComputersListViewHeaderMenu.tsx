@@ -12,7 +12,7 @@ import { MdMoreVert } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import { CreateComputerModal } from "../../../modules/CreateComputerModal";
 
-export function ComputersListViewHeaderMenu() {
+export function ComputerListViewHeaderMenu() {
   const {
     isOpen: isCreateComputerModalOpen,
     onOpen: onCreateComputerModalOpen,
