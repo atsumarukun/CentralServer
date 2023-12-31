@@ -6,10 +6,10 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useToast,
 } from "@chakra-ui/react";
 import { MutableRefObject, useRef } from "react";
 import { GetComputers, useRemoveComputer } from "../../hooks/request";
+import { useActionToast } from "@/hooks/toast";
 
 type Props = {
   id: number;
@@ -50,26 +50,19 @@ function RemoveComputerAlertContent({
   cancelRef,
   onClose,
 }: ContentProps) {
-  const toast = useToast();
+  const { successToast, errorToast } = useActionToast();
 
   const [remove] = useRemoveComputer({
     id: id,
     onCompleted: () => {
-      toast({
+      successToast({
         title: "削除しました",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
       });
       onClose();
     },
     onError: (err) => {
-      toast({
-        title: "エラーが発生しました",
+      errorToast({
         description: err.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
       });
     },
     refetchRequests: [GetComputers],

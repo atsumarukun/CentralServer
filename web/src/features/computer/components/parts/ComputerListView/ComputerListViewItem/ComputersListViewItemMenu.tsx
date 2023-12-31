@@ -8,7 +8,6 @@ import {
   MenuItem,
   MenuList,
   useDisclosure,
-  useToast,
 } from "@chakra-ui/react";
 import { MdMoreVert } from "react-icons/md";
 import { VscDebugStart } from "react-icons/vsc";
@@ -21,6 +20,7 @@ import {
   GetComputers,
   useWakeOnLanComputer,
 } from "@/features/computer/hooks/request";
+import { useActionToast } from "@/hooks/toast";
 
 type Props = {
   computer: Computer;
@@ -28,7 +28,7 @@ type Props = {
 };
 
 export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
-  const toast = useToast();
+  const { successToast, errorToast } = useActionToast();
 
   const {
     isOpen: isRemoveComputerAlertOpen,
@@ -39,21 +39,14 @@ export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
   const [wol, { loading }] = useWakeOnLanComputer({
     id: computer.id,
     onCompleted: () => {
-      toast({
+      successToast({
         title: "起動しました",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
       });
       setLoading(loading);
     },
     onError: (err) => {
-      toast({
-        title: "エラーが発生しました",
+      errorToast({
         description: err.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
       });
     },
     refetchRequests: [GetComputers],

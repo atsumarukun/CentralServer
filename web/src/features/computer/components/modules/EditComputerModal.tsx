@@ -8,7 +8,6 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalCloseButton,
-  useToast,
 } from "@chakra-ui/react";
 import { ComputerForm } from "./ComputerForm";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -16,6 +15,7 @@ import { ComputerFormShema, computerFormShema } from "./ComputerForm/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GetComputers, useEditComputer } from "../../hooks/request";
 import { Computer } from "../../computer";
+import { useActionToast } from "@/hooks/toast";
 
 type Props = {
   computer: Computer;
@@ -38,7 +38,7 @@ type ContentProps = {
 };
 
 function EditComputerModalContent({ computer, onClose }: ContentProps) {
-  const toast = useToast();
+  const { successToast, errorToast } = useActionToast();
 
   const useFormReturnValue = useForm<ComputerFormShema>({
     resolver: zodResolver(computerFormShema),
@@ -47,21 +47,14 @@ function EditComputerModalContent({ computer, onClose }: ContentProps) {
   const [edit] = useEditComputer({
     id: computer.id,
     onCompleted: () => {
-      toast({
+      successToast({
         title: "登録しました",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
       });
       onClose();
     },
     onError: (err) => {
-      toast({
-        title: "エラーが発生しました",
+      errorToast({
         description: err.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
       });
     },
     refetchRequests: [GetComputers],
