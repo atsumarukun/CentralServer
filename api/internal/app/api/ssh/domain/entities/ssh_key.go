@@ -9,7 +9,7 @@ type SshKey struct {
 	gorm.Model
 	ID           int            `gorm:"primary_key"`
 	UserName     string         `gorm:"not null"`
-	ComputerID   int
+	ComputerID   int            `gorm:"not null"`
 	PrivateKey   string         `gorm:"not null"`
   CreatedAt    time.Time
   UpdatedAt    time.Time
