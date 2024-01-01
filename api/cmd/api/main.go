@@ -5,6 +5,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"api/internal/app/api/pkg/database"
 	"api/internal/app/api/computer"
+	"api/internal/app/api/ssh"
 )
 
 func main() {
@@ -24,5 +25,6 @@ func main() {
 	}))
 	v1 := r.Group("/api/v1")
 	computer.AddComputerRoutes(v1)
+	ssh.AddSshRoutes(v1)
 	r.Run(":8000")
 }

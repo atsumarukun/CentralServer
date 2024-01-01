@@ -5,7 +5,8 @@ import (
   "gorm.io/gorm"
 	"gorm.io/driver/postgres"
 	"api/internal/app/api/pkg/conf"
-	"api/internal/app/api/computer/domain/entities"
+	computerEntity "api/internal/app/api/computer/domain/entities"
+	sshKeyEntity "api/internal/app/api/ssh/domain/entities"
 )
 
 var (
@@ -28,5 +29,6 @@ func Connect() {
 		panic("Failed to connect database.")
 	}
 
-	DB.AutoMigrate(&entities.Computer{})
+	DB.AutoMigrate(&computerEntity.Computer{})
+	DB.AutoMigrate(&sshKeyEntity.SshKey{})
 }
