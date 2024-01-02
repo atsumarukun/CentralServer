@@ -43,7 +43,7 @@ func (_ computerPersistence) GetComputerAll() ([]entities.Computer, error) {
 
 func (_ computerPersistence) GetComputerById(id int) (*entities.Computer, error) {
 	var computer entities.Computer
-	if err := database.DB.First(&computer, id).Error; err != nil {
+	if err := database.DB.Model(&entities.Computer{}).Preload("SshKeys").First(&computer, id).Error; err != nil {
 		return nil, err
 	}
 	return &computer, nil
