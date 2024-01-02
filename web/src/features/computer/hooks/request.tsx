@@ -29,6 +29,30 @@ export function useGetComputers() {
   };
 }
 
+export const GetComputer = "computer/$id";
+
+export function useGetComputer({ id }: { id: number }) {
+  const firstRef = useRef(true);
+
+  const [request, { loading, error, data }] = useRequest<Computer, undefined>({
+    path: GetComputer.replace("$id", `${id}`),
+  });
+
+  useEffect(() => {
+    if (firstRef.current) {
+      request();
+      firstRef.current = false;
+    }
+  }, [request]);
+
+  return {
+    loading,
+    error,
+    data,
+    refetch: request,
+  };
+}
+
 type CreateComputerProps = {
   input?: {
     host_name: string;
