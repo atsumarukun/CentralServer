@@ -15,5 +15,5 @@ type Computer struct {
   CreatedAt    time.Time
   UpdatedAt    time.Time
 	DeletedAt    gorm.DeletedAt        `gorm:"index"`
-	SshKeys      []sshKeyEntity.SshKey
+	SshKeys      []sshKeyEntity.SshKey `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }

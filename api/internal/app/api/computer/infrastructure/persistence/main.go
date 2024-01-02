@@ -27,7 +27,7 @@ func (_ computerPersistence) UpdateComputer(computer *entities.Computer) (*entit
 }
 
 func (_ computerPersistence) DeleteComputer(computer *entities.Computer) (*entities.Computer, error) {
-	if err := database.DB.Unscoped().Delete(computer).Error; err != nil {
+	if err := database.DB.Select("SshKeys").Unscoped().Delete(computer).Error; err != nil {
 		return nil, err
 	}
 	return computer, nil
