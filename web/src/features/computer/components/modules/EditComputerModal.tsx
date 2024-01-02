@@ -14,7 +14,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ComputerFormShema, computerFormShema } from "./ComputerForm/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GetComputers, useEditComputer } from "../../hooks/request";
-import { Computer } from "../../computer";
+import { Computer } from "../../types";
 import { useActionToast } from "@/hooks/toast";
 
 type Props = {

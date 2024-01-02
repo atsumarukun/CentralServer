@@ -1,5 +1,5 @@
 import { UseRequestReturn, useRequest } from "@/hooks/request";
-import { Computer } from "../computer";
+import { Computer } from "../types";
 import { useEffect, useRef } from "react";
 import { RequestCallbacks } from "@/providers/request";
 

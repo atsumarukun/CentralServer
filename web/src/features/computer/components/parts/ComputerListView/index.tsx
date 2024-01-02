@@ -1,6 +1,6 @@
 import { Stack } from "@chakra-ui/react";
 import { ComputerListViewItem } from "./ComputerListViewItem";
-import { Computer } from "@/features/computer/computer";
+import { Computer } from "@/features/computer/types";
 import { ComputerListViewHeader } from "./ComputerListViewHeader";
 
 type Props = {

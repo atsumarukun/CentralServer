@@ -14,7 +14,7 @@ import { VscDebugStart } from "react-icons/vsc";
 import { VscDebugStop } from "react-icons/vsc";
 import { VscDebugRestart } from "react-icons/vsc";
 import { LuTrash } from "react-icons/lu";
-import { Computer } from "@/features/computer/computer";
+import { Computer } from "@/features/computer/types";
 import { RemoveComputerAlert } from "../../../modules/RemoveComputerAlert";
 import {
   GetComputers,

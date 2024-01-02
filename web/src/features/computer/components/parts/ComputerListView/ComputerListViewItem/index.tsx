@@ -1,4 +1,4 @@
-import { Computer } from "@/features/computer/computer";
+import { Computer } from "@/features/computer/types";
 import {
   Circle,
   Grid,

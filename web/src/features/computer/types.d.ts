@@ -1,3 +1,11 @@
+export type SshKey = {
+  id: number,
+  user_name: string,
+  created_at: number,
+  updated_at: number,
+  computer_id: number,
+}
+
 export type Computer = {
   id: number,
   host_name: string,
@@ -6,4 +14,5 @@ export type Computer = {
   running: boolean | null,
   created_at: number,
   updated_at: number,
+  ssh_keys?: SshKey[],
 }

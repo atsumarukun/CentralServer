@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, Input, Stack, Text } from "@chakra-ui/react";
 import { UseFormReturn } from "react-hook-form";
 import { ComputerFormShema } from "./schema";
-import { Computer } from "@/features/computer/computer";
+import { Computer } from "@/features/computer/types";
 import { useEffect } from "react";
 
 type Props = {

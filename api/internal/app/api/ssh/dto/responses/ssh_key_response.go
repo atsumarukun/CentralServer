@@ -6,11 +6,11 @@ import (
 )
 
 type SshKeyResponse struct {
-	ID           int            `gorm:"primary_key"`
-	UserName     string         `gorm:"not null"`
-  CreatedAt    time.Time
-  UpdatedAt    time.Time
-	ComputerID   int            `gorm:"not null"`
+	ID           int            `json:"id"`
+	UserName     string         `json:"user_name"`
+  CreatedAt    time.Time      `json:"created_at"`
+  UpdatedAt    time.Time      `json:"updated_at"`
+	ComputerID   int            `json:"computer_id"`
 }
 
 func FromEntity(sshKey *entities.SshKey) *SshKeyResponse {
