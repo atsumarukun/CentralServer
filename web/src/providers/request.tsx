@@ -66,12 +66,11 @@ export class RequestClient {
         const data: { data: T } | { error: string } = await res.json();
         if ("error" in data) throw new RequestError(data.error);
         setData(await data.data);
-        if (refetchRequests)
-          Promise.all(
-            refetchRequests
-              .map((v) => this.requests[v].map((refetch) => refetch()))
-              .flat()
-          );
+        await Promise.all(
+          refetchRequests?.map((v) =>
+            this.requests[v]?.map((refetch) => refetch?.())
+          ) ?? []
+        );
         onCompleted?.(data.data);
       })
       .catch((err: RequestError) => {

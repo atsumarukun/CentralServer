@@ -19,7 +19,7 @@ export function SshKeyListViewItem({ sshKey }: Props) {
           <Text>{sshKey.user_name}</Text>
         </GridItem>
         <GridItem colSpan={3} display={{ base: "none", md: "block" }}>
-          <Text>●●●●●●●●●●</Text>
+          <Text>●●●●●●●●●●●●●●●●●●●●</Text>
         </GridItem>
       </Grid>
       <HStack>
