@@ -5,7 +5,7 @@ export function ComputerListViewHeader() {
   return (
     <HStack
       spacing={4}
-      p={3}
+      px={6}
       fontWeight="bold"
       bgColor="whiteAlpha.100"
       borderBottomWidth="1px"
@@ -14,8 +14,9 @@ export function ComputerListViewHeader() {
       <Grid
         flexGrow={1}
         gap={4}
+        py={3}
         templateColumns={{
-          base: "repeat(3, 1fr)",
+          base: "repeat(4, 1fr)",
           md: "repeat(4, 1fr)",
           lg: "repeat(5, 1fr)",
         }}
@@ -23,7 +24,7 @@ export function ComputerListViewHeader() {
         <GridItem colSpan={2}>
           <Text>ホスト名</Text>
         </GridItem>
-        <GridItem>
+        <GridItem colSpan={{ base: 2, md: 1 }}>
           <Text>ステータス</Text>
         </GridItem>
         <GridItem display={{ base: "none", md: "block" }}>

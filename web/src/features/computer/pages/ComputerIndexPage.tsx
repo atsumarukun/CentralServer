@@ -5,6 +5,7 @@ import { useGetComputers } from "../hooks/request";
 import { MdOutlineDesktopAccessDisabled } from "react-icons/md";
 import { ErrorStatus } from "@/components/parts/ErrorStatus";
 import { ComputerListView } from "../components/parts/ComputerListView";
+import { Stack } from "@chakra-ui/react";
 
 export function ComputerIndexPage() {
   const { loading, error, data } = useGetComputers();
@@ -18,5 +19,9 @@ export function ComputerIndexPage() {
       />
     );
 
-  return <ComputerListView computers={data} />;
+  return (
+    <Stack m={6}>
+      <ComputerListView computers={data} />
+    </Stack>
+  );
 }

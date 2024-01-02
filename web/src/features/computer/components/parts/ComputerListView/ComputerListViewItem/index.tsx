@@ -31,7 +31,7 @@ export function ComputerListViewItem({ computer }: Props) {
   return (
     <HStack
       spacing={4}
-      px={3}
+      px={6}
       borderBottomWidth="1px"
       borderBottomColor="whiteAlpha.500"
     >
@@ -42,7 +42,7 @@ export function ComputerListViewItem({ computer }: Props) {
         py={3}
         flexGrow={1}
         templateColumns={{
-          base: "repeat(3, 1fr)",
+          base: "repeat(4, 1fr)",
           md: "repeat(4, 1fr)",
           lg: "repeat(5, 1fr)",
         }}
@@ -50,7 +50,7 @@ export function ComputerListViewItem({ computer }: Props) {
         <GridItem colSpan={2}>
           <Text>{computer.host_name}</Text>
         </GridItem>
-        <GridItem>
+        <GridItem colSpan={{ base: 2, md: 1 }}>
           <HStack>
             <Circle
               bgColor={
