@@ -24,7 +24,7 @@ func FromEntity(sshKey *entities.SshKey) *SshKeyResponse {
 }
 
 func FromEntities(sshKeys []entities.SshKey) []SshKeyResponse {
-	var response []SshKeyResponse
+	response := []SshKeyResponse{}
 	for _, sshkey := range sshKeys {
 		response = append(response, *FromEntity(&sshkey))
 	}

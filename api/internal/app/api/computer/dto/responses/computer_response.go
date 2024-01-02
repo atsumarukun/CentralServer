@@ -30,7 +30,7 @@ func FromEntity(computer *entities.Computer) *ComputerResponse {
 }
 
 func FromEntities(computers []entities.Computer) []ComputerResponse {
-	var response []ComputerResponse
+	response := []ComputerResponse{}
 	for _, computer := range computers {
 		response = append(response, *FromEntity(&computer))
 	}

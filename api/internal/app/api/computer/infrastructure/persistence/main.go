@@ -34,7 +34,7 @@ func (_ computerPersistence) DeleteComputer(computer *entities.Computer) (*entit
 }
 
 func (_ computerPersistence) GetComputerAll() ([]entities.Computer, error) {
-	var computers []entities.Computer
+	computers := []entities.Computer{}
 	if err := database.DB.Find(&computers).Error; err != nil {
 		return nil, err
 	}
