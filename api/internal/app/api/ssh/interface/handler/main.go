@@ -10,6 +10,7 @@ import (
 
 type SshKeyHandler interface {
 	CreateSshKey(c *gin.Context)
+	UpdateSshKey(c *gin.Context)
 	DeleteSshKey(c *gin.Context)
 }
 
@@ -31,6 +32,24 @@ func (h sshKeyHandler) CreateSshKey(c *gin.Context) {
 	}
 
 	publicKey, err := h.sshKeyUseCase.CreateSshKey(&request)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"data": publicKey,
+	})
+}
+
+func (h sshKeyHandler) UpdateSshKey(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	publicKey, err := h.sshKeyUseCase.UpdateSshKey(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

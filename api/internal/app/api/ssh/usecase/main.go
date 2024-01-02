@@ -10,6 +10,7 @@ import (
 
 type SshKeyUseCase interface {
 	CreateSshKey(request *requests.CreateSshKeyRequest) (string, error)
+	UpdateSshKey(id int) (string, error)
 	DeleteSshKey(id int) (*responses.SshKeyResponse, error)
 }
 
@@ -40,6 +41,25 @@ func (uc sshKeyUseCase) CreateSshKey(request *requests.CreateSshKeyRequest) (str
 		return "", err
 	}
 
+	return strings.Replace(sshKeyPair.PublicKey, "\n", "", 1), nil
+}
+
+func (uc sshKeyUseCase) UpdateSshKey(id int) (string, error) {
+	sshKey, err := uc.sshKeyRepository.GetSshKeyById(id)
+	if err != nil {
+		return "", err
+	}
+
+	sshKeyPair, err := crypto.SshKeyGen()
+	if err != nil {
+		return "", err
+	}
+
+	sshKey.PrivateKey = sshKeyPair.PrivateKey
+	sshKey, err = uc.sshKeyRepository.UpdateSshKey(sshKey)
+	if err != nil {
+		return "", err
+	}
 	return strings.Replace(sshKeyPair.PublicKey, "\n", "", 1), nil
 }
 
