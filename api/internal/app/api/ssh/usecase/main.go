@@ -4,11 +4,13 @@ import (
 	"strings"
 	"api/internal/app/api/ssh/domain/repository"
 	"api/internal/app/api/ssh/dto/requests"
+	"api/internal/app/api/ssh/dto/responses"
 	"api/internal/app/api/ssh/pkg/crypto"
 )
 
 type SshKeyUseCase interface {
 	CreateSshKey(request *requests.CreateSshKeyRequests) (string, error)
+	DeleteSshKey(id int) (*responses.SshKeyResponse, error)
 }
 
 type sshKeyUseCase struct {
@@ -39,4 +41,17 @@ func (uc sshKeyUseCase) CreateSshKey(request *requests.CreateSshKeyRequests) (st
 	}
 
 	return strings.Replace(sshKeyPair.PublicKey, "\n", "", 1), nil
+}
+
+func (uc sshKeyUseCase) DeleteSshKey(id int) (*responses.SshKeyResponse, error) {
+	sshKey, err := uc.sshKeyRepository.GetSshKeyById(id)
+	if err != nil {
+		return nil, err
+	}
+
+	sshKey, err = uc.sshKeyRepository.DeleteSshKey(sshKey)
+	if err != nil {
+		return nil, err
+	}
+	return responses.FromEntity(sshKey), nil
 }

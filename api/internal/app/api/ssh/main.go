@@ -14,4 +14,5 @@ func AddSshRoutes(rg *gin.RouterGroup) {
 
 	ssh := rg.Group("/ssh/key")
 	ssh.POST("/", handler.CreateSshKey)
+	ssh.DELETE("/:id", handler.DeleteSshKey)
 }
