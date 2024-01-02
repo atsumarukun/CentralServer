@@ -28,7 +28,7 @@ func NewComputerHandler(uc usecase.ComputerUseCase) ComputerHandler {
 }
 
 func (h computerHandler) CreateComputer(c *gin.Context) {
-	var request requests.CreateComputerRequests
+	var request requests.CreateComputerRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -52,7 +52,7 @@ func (h computerHandler) UpdateComputer(c *gin.Context) {
 		return
 	}
 
-	var request requests.UpdateComputerRequests
+	var request requests.UpdateComputerRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

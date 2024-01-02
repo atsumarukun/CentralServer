@@ -10,8 +10,8 @@ import (
 )
 
 type ComputerUseCase interface {
-	CreateComputer(request *requests.CreateComputerRequests) (*responses.ComputerResponse, error)
-	UpdateComputer(id int, request *requests.UpdateComputerRequests) (*responses.ComputerResponse, error)
+	CreateComputer(request *requests.CreateComputerRequest) (*responses.ComputerResponse, error)
+	UpdateComputer(id int, request *requests.UpdateComputerRequest) (*responses.ComputerResponse, error)
 	DeleteComputer(id int) (*responses.ComputerResponse, error)
 	WakeOnLanComputer(id int) (*responses.ComputerResponse, error)
 	GetComputerAll() ([]responses.ComputerResponse, error)
@@ -28,7 +28,7 @@ func NewComputerUseCase(r repository.ComputerRepository) ComputerUseCase {
 	}
 }
 
-func (uc computerUseCase) CreateComputer(request *requests.CreateComputerRequests) (*responses.ComputerResponse, error) {
+func (uc computerUseCase) CreateComputer(request *requests.CreateComputerRequest) (*responses.ComputerResponse, error) {
 	if err := request.Validate(); err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (uc computerUseCase) CreateComputer(request *requests.CreateComputerRequest
 	return responses.FromEntity(computer), nil
 }
 
-func (uc computerUseCase) UpdateComputer(id int, request *requests.UpdateComputerRequests) (*responses.ComputerResponse, error) {
+func (uc computerUseCase) UpdateComputer(id int, request *requests.UpdateComputerRequest) (*responses.ComputerResponse, error) {
 	if err := request.Validate(); err != nil {
 		return nil, err
 	}

@@ -24,7 +24,7 @@ func NewSshKeyHandler(uc usecase.SshKeyUseCase) SshKeyHandler {
 }
 
 func (h sshKeyHandler) CreateSshKey(c *gin.Context) {
-	var request requests.CreateSshKeyRequests
+	var request requests.CreateSshKeyRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

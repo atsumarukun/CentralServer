@@ -5,12 +5,12 @@ import (
 	"api/internal/app/api/ssh/domain/entities"
 )
 
-type CreateSshKeyRequests struct {
+type CreateSshKeyRequest struct {
 	ComputerID int    `json:"computer_id"`
 	UserName   string `json:"user_name"`
 }
 
-func (r *CreateSshKeyRequests) Validate() error {
+func (r *CreateSshKeyRequest) Validate() error {
 	return validation.ValidateStruct(r,
 		validation.Field(
 			&r.ComputerID,
@@ -24,7 +24,7 @@ func (r *CreateSshKeyRequests) Validate() error {
 	)
 }
 
-func (r *CreateSshKeyRequests) ToEntity() *entities.SshKey {
+func (r *CreateSshKeyRequest) ToEntity() *entities.SshKey {
 	return &entities.SshKey{
 		ComputerID: r.ComputerID,
 		UserName: r.UserName,

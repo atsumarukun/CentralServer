@@ -6,13 +6,13 @@ import (
 	"api/internal/app/api/computer/domain/entities"
 )
 
-type CreateComputerRequests struct {
+type CreateComputerRequest struct {
 	HostName   string `json:"host_name"`
 	IPAddress  string `json:"ip_address"`
 	MACAddress string `json:"mac_address"`
 }
 
-func (r *CreateComputerRequests) Validate() error {
+func (r *CreateComputerRequest) Validate() error {
 	return validation.ValidateStruct(r,
 		validation.Field(
 			&r.HostName,
@@ -31,7 +31,7 @@ func (r *CreateComputerRequests) Validate() error {
 	)
 }
 
-func (r *CreateComputerRequests) ToEntity() *entities.Computer {
+func (r *CreateComputerRequest) ToEntity() *entities.Computer {
 	return &entities.Computer{
 		HostName: r.HostName,
 		IPAddress: r.IPAddress,

@@ -9,7 +9,7 @@ import (
 )
 
 type SshKeyUseCase interface {
-	CreateSshKey(request *requests.CreateSshKeyRequests) (string, error)
+	CreateSshKey(request *requests.CreateSshKeyRequest) (string, error)
 	DeleteSshKey(id int) (*responses.SshKeyResponse, error)
 }
 
@@ -23,7 +23,7 @@ func NewSshKeyUseCase(r repository.SshKeyRepository) SshKeyUseCase {
 	}
 }
 
-func (uc sshKeyUseCase) CreateSshKey(request *requests.CreateSshKeyRequests) (string, error) {
+func (uc sshKeyUseCase) CreateSshKey(request *requests.CreateSshKeyRequest) (string, error) {
 	if err := request.Validate(); err != nil {
 		return "", err
 	}
