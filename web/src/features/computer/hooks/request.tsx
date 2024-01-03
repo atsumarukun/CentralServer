@@ -148,3 +148,18 @@ export function useGenerateSshKey({ input, ...props }: GenerateSshKeyProps) {
     ...props,
   });
 }
+
+type RemoveSshKeyProps = {
+  id: number;
+} & RequestCallbacks<SshKey>;
+
+export function useRemoveSshKey({
+  id,
+  ...props
+}: RemoveSshKeyProps): UseRequestReturn<SshKey, undefined> {
+  return useRequest<SshKey, undefined>({
+    path: `ssh/key/${id}`,
+    method: "DELETE",
+    ...props,
+  });
+}
