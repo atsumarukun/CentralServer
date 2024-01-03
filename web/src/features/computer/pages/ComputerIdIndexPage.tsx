@@ -5,6 +5,7 @@ import {
   HStack,
   Icon,
   Stack,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useGetComputer } from "../hooks/request";
@@ -13,12 +14,15 @@ import { ErrorStatus } from "@/components/parts/ErrorStatus";
 import { MdEdit, MdOutlineDesktopAccessDisabled } from "react-icons/md";
 import { EditComputerModal } from "../components/modules/EditComputerModal";
 import { SshKeyListView } from "../components/parts/SshKeyListView";
+import { useState } from "react";
 
 type Props = {
   id: number;
 };
 
 export function ComputerIdIndexPage({ id }: Props) {
+  const [publicKey, setPublicKey] = useState<string>();
+
   const { loading, error, data } = useGetComputer({
     input: {
       id: id,
@@ -75,9 +79,28 @@ export function ComputerIdIndexPage({ id }: Props) {
         </GridItem>
         <GridItem colSpan={3}>{data.mac_address}</GridItem>
       </Grid>
-      {data.ssh_keys && (
-        <SshKeyListView computer_id={data.id} sshKeys={data.ssh_keys} />
-      )}
+      <Stack>
+        {publicKey && (
+          <HStack px={6} justifyContent="space-between">
+            <Text
+              w="75%"
+              textOverflow="ellipsis"
+              overflow="hidden"
+              whiteSpace="nowrap"
+            >
+              {publicKey}
+            </Text>
+            <Button variant="unstyle">コピー</Button>
+          </HStack>
+        )}
+        {data.ssh_keys && (
+          <SshKeyListView
+            computer_id={data.id}
+            sshKeys={data.ssh_keys}
+            setPublicKey={setPublicKey}
+          />
+        )}
+      </Stack>
     </Stack>
   );
 }

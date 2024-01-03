@@ -4,9 +4,10 @@ import { SshKeyListViewItemMenu } from "./SshKeyListViewItemMenu";
 
 type Props = {
   sshKey: SshKey;
+  setPublicKey?: (publicKey?: string) => void;
 };
 
-export function SshKeyListViewItem({ sshKey }: Props) {
+export function SshKeyListViewItem({ sshKey, setPublicKey }: Props) {
   return (
     <HStack
       spacing={4}
@@ -23,7 +24,7 @@ export function SshKeyListViewItem({ sshKey }: Props) {
         </GridItem>
       </Grid>
       <HStack>
-        <SshKeyListViewItemMenu sshKey={sshKey} />
+        <SshKeyListViewItemMenu sshKey={sshKey} setPublicKey={setPublicKey} />
       </HStack>
     </HStack>
   );

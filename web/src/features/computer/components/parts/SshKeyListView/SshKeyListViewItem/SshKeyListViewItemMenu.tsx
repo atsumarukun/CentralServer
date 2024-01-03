@@ -17,9 +17,10 @@ import { RegenerateSshKeyAlert } from "../../../modules/RegenerateSshKeyAlert";
 
 type Props = {
   sshKey: SshKey;
+  setPublicKey?: (publicKey?: string) => void;
 };
 
-export function SshKeyListViewItemMenu({ sshKey }: Props) {
+export function SshKeyListViewItemMenu({ sshKey, setPublicKey }: Props) {
   const {
     isOpen: isRegenerateSshKeyAlertOpen,
     onOpen: onRegenerateSshKeyAlertOpen,
@@ -42,15 +43,19 @@ export function SshKeyListViewItemMenu({ sshKey }: Props) {
         <MenuItem
           icon={<Icon as={MdEdit} boxSize={5} />}
           onClick={onRegenerateSshKeyAlertOpen}
+          isDisabled={!setPublicKey}
         >
           再生成
         </MenuItem>
-        <RegenerateSshKeyAlert
-          id={sshKey.id}
-          userName={sshKey.user_name}
-          isOpen={isRegenerateSshKeyAlertOpen}
-          onClose={onRegenerateSshKeyAlertClose}
-        />
+        {setPublicKey && (
+          <RegenerateSshKeyAlert
+            id={sshKey.id}
+            userName={sshKey.user_name}
+            isOpen={isRegenerateSshKeyAlertOpen}
+            onClose={onRegenerateSshKeyAlertClose}
+            setPublicKey={setPublicKey}
+          />
+        )}
         <MenuDivider />
         <MenuItem
           color="red.400"

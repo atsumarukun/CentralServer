@@ -14,9 +14,10 @@ import { GenerateSshKeyModal } from "../../../modules/GenerateSshKeyModal";
 
 type Props = {
   computer_id: number;
+  setPublicKey?: (publicKey?: string) => void;
 };
 
-export function SshKeyListViewHeaderMenu({ computer_id }: Props) {
+export function SshKeyListViewHeaderMenu({ computer_id, setPublicKey }: Props) {
   const {
     isOpen: isGenerateSshKeyModalOpen,
     onOpen: onGenerateSshKeyModalOpen,
@@ -34,14 +35,18 @@ export function SshKeyListViewHeaderMenu({ computer_id }: Props) {
         <MenuItem
           icon={<Icon as={FiPlus} boxSize={5} />}
           onClick={onGenerateSshKeyModalOpen}
+          isDisabled={!setPublicKey}
         >
           生成
         </MenuItem>
-        <GenerateSshKeyModal
-          computer_id={computer_id}
-          isOpen={isGenerateSshKeyModalOpen}
-          onClose={onGenerateSshKeyModalClose}
-        />
+        {setPublicKey && (
+          <GenerateSshKeyModal
+            computer_id={computer_id}
+            isOpen={isGenerateSshKeyModalOpen}
+            onClose={onGenerateSshKeyModalClose}
+            setPublicKey={setPublicKey}
+          />
+        )}
       </MenuList>
     </Menu>
   );

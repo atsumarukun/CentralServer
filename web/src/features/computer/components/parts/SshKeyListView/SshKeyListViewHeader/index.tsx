@@ -3,9 +3,10 @@ import { SshKeyListViewHeaderMenu } from "./SshKeyListViewHeaderMenu";
 
 type Props = {
   computer_id: number;
+  setPublicKey?: (publicKey?: string) => void;
 };
 
-export function SshKeyListViewHeader({ computer_id }: Props) {
+export function SshKeyListViewHeader({ computer_id, setPublicKey }: Props) {
   return (
     <HStack
       spacing={4}
@@ -24,7 +25,10 @@ export function SshKeyListViewHeader({ computer_id }: Props) {
         </GridItem>
       </Grid>
       <HStack>
-        <SshKeyListViewHeaderMenu computer_id={computer_id} />
+        <SshKeyListViewHeaderMenu
+          computer_id={computer_id}
+          setPublicKey={setPublicKey}
+        />
       </HStack>
     </HStack>
   );

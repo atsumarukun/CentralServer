@@ -136,10 +136,16 @@ type GenerateSshKeyProps = {
     computer_id: number;
     user_name: string;
   };
-} & RequestCallbacks<SshKey>;
+} & RequestCallbacks<string>;
 
-export function useGenerateSshKey({ input, ...props }: GenerateSshKeyProps) {
-  return useRequest<SshKey, GenerateSshKeyProps["input"]>({
+export function useGenerateSshKey({
+  input,
+  ...props
+}: GenerateSshKeyProps): UseRequestReturn<
+  string,
+  GenerateSshKeyProps["input"]
+> {
+  return useRequest<string, GenerateSshKeyProps["input"]>({
     path: "ssh/key/",
     method: {
       method: "POST",
@@ -151,13 +157,13 @@ export function useGenerateSshKey({ input, ...props }: GenerateSshKeyProps) {
 
 type RegenerateSshKeyProps = {
   id: number;
-} & RequestCallbacks<SshKey>;
+} & RequestCallbacks<string>;
 
 export function useRegenerateSshKey({
   id,
   ...props
-}: RegenerateSshKeyProps): UseRequestReturn<SshKey, undefined> {
-  return useRequest<SshKey, undefined>({
+}: RegenerateSshKeyProps): UseRequestReturn<string, undefined> {
+  return useRequest<string, undefined>({
     path: `ssh/key/${id}`,
     method: { method: "PUT" },
     ...props,

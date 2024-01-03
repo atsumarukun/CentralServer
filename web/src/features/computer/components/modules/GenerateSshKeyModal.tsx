@@ -20,6 +20,7 @@ type Props = {
   computer_id: number;
   isOpen: boolean;
   onClose: () => void;
+  setPublicKey: (publicKey?: string) => void;
 };
 
 export function GenerateSshKeyModal({ isOpen, onClose, ...props }: Props) {
@@ -34,9 +35,14 @@ export function GenerateSshKeyModal({ isOpen, onClose, ...props }: Props) {
 type ContentProps = {
   computer_id: number;
   onClose: () => void;
+  setPublicKey: (publicKey?: string) => void;
 };
 
-function GenerateSshKeyModalContent({ computer_id, onClose }: ContentProps) {
+function GenerateSshKeyModalContent({
+  computer_id,
+  onClose,
+  setPublicKey,
+}: ContentProps) {
   const { successToast, errorToast } = useActionToast();
 
   const useFormReturnValue = useForm<SshKeyFormShema>({
@@ -44,10 +50,11 @@ function GenerateSshKeyModalContent({ computer_id, onClose }: ContentProps) {
   });
 
   const [generate] = useGenerateSshKey({
-    onCompleted: () => {
+    onCompleted: (data) => {
       successToast({
         title: "生成しました",
       });
+      setPublicKey(data);
       onClose();
     },
     onError: (err) => {

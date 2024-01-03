@@ -16,6 +16,7 @@ type Props = {
   userName: string;
   isOpen: boolean;
   onClose: () => void;
+  setPublicKey: (publicKey?: string) => void;
 };
 
 export function RegenerateSshKeyAlert({ isOpen, onClose, ...props }: Props) {
@@ -42,6 +43,7 @@ type ContentProps = {
   userName: string;
   cancelRef: MutableRefObject<null>;
   onClose: () => void;
+  setPublicKey: (publicKey?: string) => void;
 };
 
 function RegenerateSshKeyAlertContent({
@@ -49,15 +51,17 @@ function RegenerateSshKeyAlertContent({
   userName,
   cancelRef,
   onClose,
+  setPublicKey,
 }: ContentProps) {
   const { successToast, errorToast } = useActionToast();
 
   const [regenerate] = useRegenerateSshKey({
     id: id,
-    onCompleted: () => {
+    onCompleted: (data) => {
       successToast({
         title: "再生成しました",
       });
+      setPublicKey(data);
       onClose();
     },
     onError: (err) => {
