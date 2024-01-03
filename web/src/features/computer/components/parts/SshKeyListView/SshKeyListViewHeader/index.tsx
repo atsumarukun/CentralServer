@@ -1,7 +1,11 @@
 import { Grid, GridItem, HStack, Text } from "@chakra-ui/react";
 import { SshKeyListViewHeaderMenu } from "./SshKeyListViewHeaderMenu";
 
-export function SshKeyListViewHeader() {
+type Props = {
+  computer_id: number;
+};
+
+export function SshKeyListViewHeader({ computer_id }: Props) {
   return (
     <HStack
       spacing={4}
@@ -20,7 +24,7 @@ export function SshKeyListViewHeader() {
         </GridItem>
       </Grid>
       <HStack>
-        <SshKeyListViewHeaderMenu />
+        <SshKeyListViewHeaderMenu computer_id={computer_id} />
       </HStack>
     </HStack>
   );

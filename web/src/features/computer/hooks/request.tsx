@@ -1,5 +1,5 @@
 import { UseRequestReturn, useRequest } from "@/hooks/request";
-import { Computer } from "../types";
+import { Computer, SshKey } from "../types";
 import { useEffect, useRef } from "react";
 import { RequestCallbacks } from "@/providers/request";
 
@@ -126,6 +126,24 @@ export function useWakeOnLanComputer({ id, ...props }: WakeOnLanComputerProps) {
     path: `computer/${id}/wol`,
     method: {
       method: "PUT",
+    },
+    ...props,
+  });
+}
+
+type GenerateSshKeyProps = {
+  input?: {
+    computer_id: number;
+    user_name: string;
+  };
+} & RequestCallbacks<SshKey>;
+
+export function useGenerateSshKey({ input, ...props }: GenerateSshKeyProps) {
+  return useRequest<SshKey, GenerateSshKeyProps["input"]>({
+    path: "ssh/key/",
+    method: {
+      method: "POST",
+      body: JSON.stringify(input),
     },
     ...props,
   });

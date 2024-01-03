@@ -75,7 +75,9 @@ export function ComputerIdIndexPage({ id }: Props) {
         </GridItem>
         <GridItem colSpan={3}>{data.mac_address}</GridItem>
       </Grid>
-      {data.ssh_keys && <SshKeyListView sshKeys={data.ssh_keys} />}
+      {data.ssh_keys && (
+        <SshKeyListView computer_id={data.id} sshKeys={data.ssh_keys} />
+      )}
     </Stack>
   );
 }
