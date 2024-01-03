@@ -13,7 +13,11 @@ import { ComputerForm } from "./ComputerForm";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ComputerFormShema, computerFormShema } from "./ComputerForm/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { GetComputers, useEditComputer } from "../../hooks/request";
+import {
+  GetComputer,
+  GetComputers,
+  useEditComputer,
+} from "../../hooks/request";
 import { Computer } from "../../types";
 import { useActionToast } from "@/hooks/toast";
 
@@ -57,12 +61,12 @@ function EditComputerModalContent({ computer, onClose }: ContentProps) {
         description: err.message,
       });
     },
-    refetchRequests: [GetComputers],
+    refetchRequests: [GetComputers, GetComputer],
   });
 
   const onSubmit: SubmitHandler<ComputerFormShema> = (input) => {
     edit({
-      input,
+      ...input,
     });
   };
 

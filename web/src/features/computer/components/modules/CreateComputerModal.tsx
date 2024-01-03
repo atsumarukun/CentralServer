@@ -58,7 +58,7 @@ function CreateComputerModalContent({ onClose }: ContentProps) {
 
   const onSubmit: SubmitHandler<ComputerFormShema> = (input) => {
     create({
-      input,
+      ...input,
     });
   };
 

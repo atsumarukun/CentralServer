@@ -6,13 +6,14 @@ import {
 } from "@/providers/request";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
-type Props<T> = {
+type Props<T, U extends object | undefined> = {
   path: string;
   method?: RequestMethod;
+  input?: U;
 } & RequestCallbacks<T>;
 
-export type UseRequestReturn<T, U> = [
-  (...input: Input<U>[]) => Promise<void>,
+export type UseRequestReturn<T, U extends object | undefined> = [
+  (...input: U[]) => Promise<void>,
   {
     loading: boolean;
     error?: RequestError;
@@ -20,15 +21,11 @@ export type UseRequestReturn<T, U> = [
   }
 ];
 
-type Input<T> = {
-  input: T;
-};
-
-export function useRequest<T, U>({
+export function useRequest<T, U extends object | undefined>({
   path,
   method,
   ...props
-}: Props<T>): UseRequestReturn<T, U> {
+}: Props<T, U>): UseRequestReturn<T, U> {
   const firstRef = useRef(true);
   const context = useContext(RequestContext);
 
@@ -37,12 +34,14 @@ export function useRequest<T, U>({
   const [data, setData] = useState<T>();
 
   const request = useCallback(
-    async (input?: Input<U>) => {
+    async (requestInput?: U) => {
+      const input = requestInput ? requestInput : props.input;
       context.client?.request({
-        path,
+        path:
+          input && "id" in input ? path.replace("$id", `${input.id}`) : path,
         method:
           method !== undefined && typeof method !== "string"
-            ? { method: method.method, body: JSON.stringify(input?.input) }
+            ? { method: method.method, body: JSON.stringify({ ...input }) }
             : method,
         ...props,
         setLoading,

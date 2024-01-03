@@ -31,11 +31,21 @@ export function useGetComputers() {
 
 export const GetComputer = "computer/$id";
 
-export function useGetComputer({ id }: { id: number }) {
+type GetComputerProps = {
+  input?: {
+    id: number;
+  };
+} & RequestCallbacks<Computer>;
+
+export function useGetComputer({ ...props }: GetComputerProps) {
   const firstRef = useRef(true);
 
-  const [request, { loading, error, data }] = useRequest<Computer, undefined>({
-    path: GetComputer.replace("$id", `${id}`),
+  const [request, { loading, error, data }] = useRequest<
+    Computer,
+    GetComputerProps["input"]
+  >({
+    path: GetComputer,
+    ...props,
   });
 
   useEffect(() => {

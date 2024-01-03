@@ -19,7 +19,11 @@ type Props = {
 };
 
 export function ComputerIdIndexPage({ id }: Props) {
-  const { loading, error, data } = useGetComputer({ id: id });
+  const { loading, error, data } = useGetComputer({
+    input: {
+      id: id,
+    },
+  });
 
   const {
     isOpen: isEditComputerModalOpen,
