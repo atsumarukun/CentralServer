@@ -14,7 +14,7 @@ export default function ComputerIdIndex({
     return (
       <ErrorStatus
         icon={MdOutlineDesktopAccessDisabled}
-        message={"コンピュータの取得に失敗しました."}
+        message="コンピュータの取得に失敗しました."
       />
     );
 

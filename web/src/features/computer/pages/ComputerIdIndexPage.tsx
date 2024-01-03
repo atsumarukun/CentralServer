@@ -36,7 +36,7 @@ export function ComputerIdIndexPage({ id }: Props) {
     return (
       <ErrorStatus
         icon={MdOutlineDesktopAccessDisabled}
-        message={"コンピュータの取得に失敗しました."}
+        message="コンピュータの取得に失敗しました."
       />
     );
 
