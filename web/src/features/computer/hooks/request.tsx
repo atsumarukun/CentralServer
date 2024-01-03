@@ -149,6 +149,21 @@ export function useGenerateSshKey({ input, ...props }: GenerateSshKeyProps) {
   });
 }
 
+type RegenerateSshKeyProps = {
+  id: number;
+} & RequestCallbacks<SshKey>;
+
+export function useRegenerateSshKey({
+  id,
+  ...props
+}: RegenerateSshKeyProps): UseRequestReturn<SshKey, undefined> {
+  return useRequest<SshKey, undefined>({
+    path: `ssh/key/${id}`,
+    method: { method: "PUT" },
+    ...props,
+  });
+}
+
 type RemoveSshKeyProps = {
   id: number;
 } & RequestCallbacks<SshKey>;
