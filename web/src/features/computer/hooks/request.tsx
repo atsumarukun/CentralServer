@@ -135,6 +135,7 @@ type GenerateSshKeyProps = {
   input?: {
     computer_id: number;
     user_name: string;
+    port: number;
   };
 } & RequestCallbacks<string>;
 

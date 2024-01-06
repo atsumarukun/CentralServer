@@ -21,6 +21,11 @@ export function SshKeyForm({ useFormReturnValue }: Props) {
         )}
         <Input {...register("user_name")} />
       </FormControl>
+      <FormControl>
+        <FormLabel>ポート番号</FormLabel>
+        {errors?.port && <Text variant="error">{errors.port.message}</Text>}
+        <Input {...register("port")} />
+      </FormControl>
     </Stack>
   );
 }

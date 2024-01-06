@@ -8,6 +8,7 @@ import (
 type CreateSshKeyRequest struct {
 	ComputerID int    `json:"computer_id"`
 	UserName   string `json:"user_name"`
+	Port       int    `json:"port"`
 }
 
 func (r *CreateSshKeyRequest) Validate() error {
@@ -21,6 +22,11 @@ func (r *CreateSshKeyRequest) Validate() error {
 			&r.UserName,
 			validation.Required.Error("ユーザ名は必須項目です"),
 		),
+		validation.Field(
+			&r.Port,
+			validation.Min(1).Error("不正なPortです"),
+			validation.Max(65535).Error("不正なPortです"),
+		),
 	)
 }
 
@@ -28,5 +34,6 @@ func (r *CreateSshKeyRequest) ToEntity() *entities.SshKey {
 	return &entities.SshKey{
 		ComputerID: r.ComputerID,
 		UserName: r.UserName,
+		Port: r.Port,
 	}
 }
