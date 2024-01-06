@@ -131,6 +131,20 @@ export function useWakeOnLanComputer({ id, ...props }: WakeOnLanComputerProps) {
   });
 }
 
+type RebootComputerProps = {
+  id: number;
+} & RequestCallbacks<Computer>;
+
+export function useRebootComputer({ id, ...props }: RebootComputerProps) {
+  return useRequest<Computer, undefined>({
+    path: `computer/${id}/reboot`,
+    method: {
+      method: "PUT",
+    },
+    ...props,
+  });
+}
+
 type GenerateSshKeyProps = {
   input?: {
     computer_id: number;

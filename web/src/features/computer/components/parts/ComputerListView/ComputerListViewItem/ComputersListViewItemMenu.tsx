@@ -1,6 +1,5 @@
 import {
   Button,
-  HStack,
   Icon,
   Menu,
   MenuButton,
@@ -18,6 +17,7 @@ import { Computer } from "@/features/computer/types";
 import { RemoveComputerAlert } from "../../../modules/RemoveComputerAlert";
 import {
   GetComputers,
+  useRebootComputer,
   useWakeOnLanComputer,
 } from "@/features/computer/hooks/request";
 import { useActionToast } from "@/hooks/toast";
@@ -36,33 +36,54 @@ export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
     onClose: onRemoveComputerAlertClose,
   } = useDisclosure();
 
-  const [wol, { loading }] = useWakeOnLanComputer({
+  const [wol, { loading: wolLoading }] = useWakeOnLanComputer({
     id: computer.id,
     onCompleted: () => {
       successToast({
         title: "起動しました",
       });
-      setLoading(loading);
+      setLoading(wolLoading);
     },
     onError: (err) => {
       errorToast({
         description: err.message,
       });
+      setLoading(wolLoading);
+    },
+    refetchRequests: [GetComputers],
+  });
+
+  const [reboot, { loading: rebootLoading }] = useRebootComputer({
+    id: computer.id,
+    onCompleted: () => {
+      successToast({
+        title: "再起動しました",
+      });
+      setLoading(rebootLoading);
+    },
+    onError: (err) => {
+      errorToast({
+        description: err.message,
+      });
+      setLoading(rebootLoading);
     },
     refetchRequests: [GetComputers],
   });
 
   const handleWakeOnLan = () => {
-    setLoading(loading);
+    setLoading(wolLoading);
     wol();
+  };
+
+  const handleReboot = () => {
+    setLoading(rebootLoading);
+    reboot();
   };
 
   return (
     <Menu>
       <MenuButton as={Button} size="xs" variant="unstyle">
-        <HStack>
-          <Icon as={MdMoreVert} boxSize={6} />
-        </HStack>
+        <Icon as={MdMoreVert} boxSize={6} />
       </MenuButton>
       <MenuList>
         <MenuItem
@@ -74,7 +95,10 @@ export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
         <MenuItem icon={<Icon as={VscDebugStop} boxSize={5} />} isDisabled>
           停止
         </MenuItem>
-        <MenuItem icon={<Icon as={VscDebugRestart} boxSize={5} />} isDisabled>
+        <MenuItem
+          icon={<Icon as={VscDebugRestart} boxSize={5} />}
+          onClick={handleReboot}
+        >
           再起動
         </MenuItem>
         <MenuDivider />
