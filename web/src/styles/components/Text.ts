@@ -1,5 +1,11 @@
 import { TextProps, defineStyle, defineStyleConfig } from "@chakra-ui/react";
 
+const ellipsis = defineStyle<TextProps>({
+  textOverflow: "ellipsis",
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+});
+
 const error = defineStyle<TextProps>({
   color: "red.400",
 });
@@ -15,7 +21,8 @@ const menu = defineStyle<TextProps>({
 
 export const Text = defineStyleConfig({
   variants: {
-    menu,
+    ellipsis,
     error,
+    menu,
   }
 });

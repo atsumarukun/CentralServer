@@ -85,13 +85,11 @@ export function ComputerIdIndexPage({ id }: Props) {
         {publicKey && (
           <HStack spacing={6} px={6} justifyContent="space-between">
             <Text
-              textOverflow="ellipsis"
-              overflow="hidden"
-              whiteSpace="nowrap"
               bgColor="blackAlpha.400"
               boxShadow="0 1rem 2rem hsl(0 0% 50% / 25%)"
               rounded={8}
               p={4}
+              variant="ellipsis"
             >
               {publicKey}
             </Text>
