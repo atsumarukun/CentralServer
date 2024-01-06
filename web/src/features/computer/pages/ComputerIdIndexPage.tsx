@@ -93,7 +93,11 @@ export function ComputerIdIndexPage({ id }: Props) {
             >
               {publicKey}
             </Text>
-            <Button variant="unstyle" onClick={() => copy(publicKey)}>
+            <Button
+              _hover={{ color: "whiteAlpha.600" }}
+              variant="unstyle"
+              onClick={() => copy(publicKey)}
+            >
               コピー
             </Button>
           </HStack>
