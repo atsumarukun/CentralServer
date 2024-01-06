@@ -16,6 +16,7 @@ type ComputerUseCase interface {
 	DeleteComputer(id int) (*responses.ComputerResponse, error)
 	WakeOnLanComputer(id int) (*responses.ComputerResponse, error)
 	RebootComputer(id int) (*responses.ComputerResponse, error)
+	ShutdownComputer(id int) (*responses.ComputerResponse, error)
 	GetComputerAll() ([]responses.ComputerResponse, error)
 	GetComputerById(id int) (*responses.ComputerResponse, error)
 }
@@ -133,6 +134,34 @@ func (uc computerUseCase) RebootComputer(id int) (*responses.ComputerResponse, e
 		}
 		running := statistics.PacketsRecv == statistics.PacketsSent
 		if running {
+			response.Running = &running
+			break
+		}
+		time.Sleep(1)
+	}
+
+	return response, nil
+}
+
+func (uc computerUseCase) ShutdownComputer(id int) (*responses.ComputerResponse, error) {
+	computer, err := uc.computerRepository.GetComputerById(id)
+	if err != nil {
+		return nil, err
+	}
+
+	if err = crypto.RunSshCommand(computer.IPAddress, computer.SshKeys[0].Port, computer.SshKeys[0].UserName, computer.SshKeys[0].PrivateKey, "sudo shutdown -h now"); err != nil && err.Error() != "wait: remote command exited without exit status or exit signal" {
+		return nil, err
+	}
+
+	response := responses.FromEntity(computer)
+
+	for {
+		statistics, err := ping.Send(computer.IPAddress)
+		if err != nil {
+			return nil, err
+		}
+		running := statistics.PacketsRecv == statistics.PacketsSent
+		if !running {
 			response.Running = &running
 			break
 		}

@@ -14,6 +14,7 @@ type ComputerHandler interface {
 	DeleteComputer(c *gin.Context)
 	WakeOnLanComputer(c *gin.Context)
 	RebootComputer(c *gin.Context)
+	ShutdownComputer(c *gin.Context)
 	GetComputerAll(c *gin.Context)
 	GetComputerById(c *gin.Context)
 }
@@ -114,6 +115,24 @@ func (h computerHandler) RebootComputer(c *gin.Context) {
 	}
 
 	computer, err := h.computerUseCase.RebootComputer(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"data": computer,
+	})
+}
+
+func (h computerHandler) ShutdownComputer(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	computer, err := h.computerUseCase.ShutdownComputer(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

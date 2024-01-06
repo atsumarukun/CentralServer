@@ -145,6 +145,20 @@ export function useRebootComputer({ id, ...props }: RebootComputerProps) {
   });
 }
 
+type ShutdownComputerProps = {
+  id: number;
+} & RequestCallbacks<Computer>;
+
+export function useShutdownComputer({ id, ...props }: ShutdownComputerProps) {
+  return useRequest<Computer, undefined>({
+    path: `computer/${id}/shutdown`,
+    method: {
+      method: "PUT",
+    },
+    ...props,
+  });
+}
+
 type GenerateSshKeyProps = {
   input?: {
     computer_id: number;

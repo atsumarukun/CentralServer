@@ -18,6 +18,7 @@ import { RemoveComputerAlert } from "../../../modules/RemoveComputerAlert";
 import {
   GetComputers,
   useRebootComputer,
+  useShutdownComputer,
   useWakeOnLanComputer,
 } from "@/features/computer/hooks/request";
 import { useActionToast } from "@/hooks/toast";
@@ -53,6 +54,23 @@ export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
     refetchRequests: [GetComputers],
   });
 
+  const [shutdown, { loading: shutdownLoading }] = useShutdownComputer({
+    id: computer.id,
+    onCompleted: () => {
+      successToast({
+        title: "停止しました",
+      });
+      setLoading(shutdownLoading);
+    },
+    onError: (err) => {
+      errorToast({
+        description: err.message,
+      });
+      setLoading(shutdownLoading);
+    },
+    refetchRequests: [GetComputers],
+  });
+
   const [reboot, { loading: rebootLoading }] = useRebootComputer({
     id: computer.id,
     onCompleted: () => {
@@ -75,6 +93,11 @@ export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
     wol();
   };
 
+  const handleShutdown = () => {
+    setLoading(shutdownLoading);
+    shutdown();
+  };
+
   const handleReboot = () => {
     setLoading(rebootLoading);
     reboot();
@@ -92,7 +115,10 @@ export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
         >
           起動
         </MenuItem>
-        <MenuItem icon={<Icon as={VscDebugStop} boxSize={5} />} isDisabled>
+        <MenuItem
+          icon={<Icon as={VscDebugStop} boxSize={5} />}
+          onClick={handleShutdown}
+        >
           停止
         </MenuItem>
         <MenuItem
