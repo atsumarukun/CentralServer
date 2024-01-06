@@ -15,6 +15,7 @@ import { MdEdit, MdOutlineDesktopAccessDisabled } from "react-icons/md";
 import { EditComputerModal } from "../components/modules/EditComputerModal";
 import { SshKeyListView } from "../components/parts/SshKeyListView";
 import { useState } from "react";
+import { useCopy } from "@/hooks/clipboard";
 
 type Props = {
   id: number;
@@ -22,6 +23,7 @@ type Props = {
 
 export function ComputerIdIndexPage({ id }: Props) {
   const [publicKey, setPublicKey] = useState<string>();
+  const { copy } = useCopy();
 
   const { loading, error, data } = useGetComputer({
     input: {
@@ -81,16 +83,21 @@ export function ComputerIdIndexPage({ id }: Props) {
       </Grid>
       <Stack>
         {publicKey && (
-          <HStack px={6} justifyContent="space-between">
+          <HStack spacing={6} px={6} justifyContent="space-between">
             <Text
-              w="75%"
               textOverflow="ellipsis"
               overflow="hidden"
               whiteSpace="nowrap"
+              bgColor="blackAlpha.400"
+              boxShadow="0 1rem 2rem hsl(0 0% 50% / 25%)"
+              rounded={8}
+              p={4}
             >
               {publicKey}
             </Text>
-            <Button variant="unstyle">コピー</Button>
+            <Button variant="unstyle" onClick={() => copy(publicKey)}>
+              コピー
+            </Button>
           </HStack>
         )}
         {data.ssh_keys && (
