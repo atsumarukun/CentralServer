@@ -29,7 +29,7 @@ export function useRequest<T, U extends object | undefined>({
   const firstRef = useRef(true);
   const context = useContext(RequestContext);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(method === undefined ? true : false);
   const [error, setError] = useState<RequestError>();
   const [data, setData] = useState<T>();
 

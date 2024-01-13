@@ -12,7 +12,6 @@ import {
 import { ComputerListViewItemMenu } from "./ComputersListViewItemMenu";
 import { MdEdit } from "react-icons/md";
 import { EditComputerModal } from "../../../modules/EditComputerModal";
-import { useState } from "react";
 import Link from "next/link";
 
 type Props = {
@@ -20,8 +19,6 @@ type Props = {
 };
 
 export function ComputerListViewItem({ computer }: Props) {
-  const [loading, setLoading] = useState(false);
-
   const {
     isOpen: isEditComputerModalOpen,
     onOpen: onEditComputerModalOpen,
@@ -53,18 +50,10 @@ export function ComputerListViewItem({ computer }: Props) {
         <GridItem colSpan={{ base: 2, md: 1 }}>
           <HStack>
             <Circle
-              bgColor={
-                loading
-                  ? "orange.400"
-                  : computer.running
-                  ? "green.400"
-                  : "red.400"
-              }
+              bgColor={computer.running ? "green.400" : "red.400"}
               p={1}
             />
-            <Text>
-              {loading ? "Starting" : computer.running ? "Running" : "Stopped"}
-            </Text>
+            <Text>{computer.running ? "Running" : "Stopped"}</Text>
           </HStack>
         </GridItem>
         <GridItem display={{ base: "none", md: "block" }}>
@@ -83,7 +72,7 @@ export function ComputerListViewItem({ computer }: Props) {
           isOpen={isEditComputerModalOpen}
           onClose={onEditComputerModalClose}
         />
-        <ComputerListViewItemMenu computer={computer} setLoading={setLoading} />
+        <ComputerListViewItemMenu computer={computer} />
       </HStack>
     </HStack>
   );

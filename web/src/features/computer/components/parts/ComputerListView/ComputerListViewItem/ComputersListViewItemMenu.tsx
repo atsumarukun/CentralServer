@@ -22,13 +22,13 @@ import {
   useWakeOnLanComputer,
 } from "@/features/computer/hooks/request";
 import { useActionToast } from "@/hooks/toast";
+import { LoadingSpinner } from "@/components/parts/LoadingSpinner";
 
 type Props = {
   computer: Computer;
-  setLoading: (loading: boolean) => void;
 };
 
-export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
+export function ComputerListViewItemMenu({ computer }: Props) {
   const { successToast, errorToast } = useActionToast();
 
   const {
@@ -43,13 +43,11 @@ export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
       successToast({
         title: "起動しました",
       });
-      setLoading(wolLoading);
     },
     onError: (err) => {
       errorToast({
         description: err.message,
       });
-      setLoading(wolLoading);
     },
     refetchRequests: [GetComputers],
   });
@@ -60,13 +58,11 @@ export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
       successToast({
         title: "停止しました",
       });
-      setLoading(shutdownLoading);
     },
     onError: (err) => {
       errorToast({
         description: err.message,
       });
-      setLoading(shutdownLoading);
     },
     refetchRequests: [GetComputers],
   });
@@ -77,31 +73,24 @@ export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
       successToast({
         title: "再起動しました",
       });
-      setLoading(rebootLoading);
     },
     onError: (err) => {
       errorToast({
         description: err.message,
       });
-      setLoading(rebootLoading);
     },
     refetchRequests: [GetComputers],
   });
 
-  const handleWakeOnLan = () => {
-    setLoading(wolLoading);
-    wol();
-  };
-
-  const handleShutdown = () => {
-    setLoading(shutdownLoading);
-    shutdown();
-  };
-
-  const handleReboot = () => {
-    setLoading(rebootLoading);
-    reboot();
-  };
+  if (wolLoading || shutdownLoading || rebootLoading)
+    return (
+      <>
+        <Button size="xs" variant="unstyle">
+          <Icon as={MdMoreVert} boxSize={6} />
+        </Button>
+        <LoadingSpinner />
+      </>
+    );
 
   return (
     <Menu>
@@ -111,19 +100,19 @@ export function ComputerListViewItemMenu({ computer, setLoading }: Props) {
       <MenuList>
         <MenuItem
           icon={<Icon as={VscDebugStart} boxSize={5} />}
-          onClick={handleWakeOnLan}
+          onClick={() => wol()}
         >
           起動
         </MenuItem>
         <MenuItem
           icon={<Icon as={VscDebugStop} boxSize={5} />}
-          onClick={handleShutdown}
+          onClick={() => shutdown()}
         >
           停止
         </MenuItem>
         <MenuItem
           icon={<Icon as={VscDebugRestart} boxSize={5} />}
-          onClick={handleReboot}
+          onClick={() => reboot()}
         >
           再起動
         </MenuItem>
