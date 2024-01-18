@@ -1,7 +1,7 @@
 FROM --platform=linux/arm64 node:18 as modules
 COPY ./package*.json /opt/web/
 WORKDIR /opt/web
-RUN npm install --target_arch=arm64
+RUN npm cache clean && npm install --target_arch=arm64
 
 FROM --platform=linux/arm64 node:18 as build
 COPY . /opt/web
