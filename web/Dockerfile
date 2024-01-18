@@ -1,7 +1,7 @@
 FROM --platform=linux/arm64 node:18 as modules
 COPY ./package*.json /opt/web/
 WORKDIR /opt/web
-RUN npm cache verify && npm install --arch=arm64 --platform=linux
+RUN npm config set registry http://registry.npmjs.org/ && npm install --arch=arm64 --platform=linux
 
 FROM --platform=linux/arm64 node:18 as build
 COPY . /opt/web
