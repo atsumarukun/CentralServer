@@ -31,9 +31,9 @@ services:
     volumes:
       - ./database:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=gorm
-      - POSTGRES_PASSWORD=gorm
-      - POSTGRES_DB=gorm
+      - POSTGRES_USER=cs
+      - POSTGRES_PASSWORD=cs
+      - POSTGRES_DB=cs
     restart: always
 
   adminer:
